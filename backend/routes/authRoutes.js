@@ -23,7 +23,11 @@ const {
 
 const { authenticateUser } = require("../middleware/authentication")
 
-router.post("/register", registerRateLimit, registerController)
+const { registerValidator } = require("../middleware/validators/authValidator")
+
+const validateInputs = require("../middleware/validators/validateInput")
+
+router.post("/register", registerRateLimit, registerValidator, validateInputs, registerController)
 router.post("/verify-email", verifyEmailRateLimit, verifyEmailController)
 router.post("/resend-verification-code", resendVerificationCodeRateLimit, resendVerificationCodeController)
 router.post("/login", loginRateLimit, loginController)
