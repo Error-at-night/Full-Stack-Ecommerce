@@ -1,17 +1,35 @@
 const express = require("express")
 const router = express.Router()
 
-const { register, login, verifyEmail, resendVerificationCode, logout, forgotPassword, resetPassword, refreshToken, } = require("../controllers/authController")
-const { resendVerificationCodeRateLimit, registerRateLimit, verifyEmailRateLimit, loginRateLimit, forgotPasswordRateLimit, resetPasswordRateLimit } = require("../middleware/rate-limit")
+const { 
+  registerController, 
+  loginController, 
+  verifyEmailController, 
+  resendVerificationCodeController, 
+  logoutController, 
+  forgotPasswordController, 
+  resetPasswordController, 
+  refreshTokenController, 
+} = require("../controllers/authController")
+
+const { 
+  resendVerificationCodeRateLimit, 
+  registerRateLimit, 
+  verifyEmailRateLimit, 
+  loginRateLimit, 
+  forgotPasswordRateLimit, 
+  resetPasswordRateLimit 
+} = require("../middleware/rate-limit")
+
 const { authenticateUser } = require("../middleware/authentication")
 
-router.post("/register", registerRateLimit, register)
-router.post("/verify-email", verifyEmailRateLimit, verifyEmail)
-router.post("/resend-verification-code", resendVerificationCodeRateLimit, resendVerificationCode)
-router.post("/login", loginRateLimit, login)
-router.get("/refresh-token", refreshToken)
-router.delete("/logout", authenticateUser, logout)
-router.post("/forgot-password", forgotPasswordRateLimit, forgotPassword)
-router.post("/reset-password/:token", resetPasswordRateLimit, resetPassword)
+router.post("/register", registerRateLimit, registerController)
+router.post("/verify-email", verifyEmailRateLimit, verifyEmailController)
+router.post("/resend-verification-code", resendVerificationCodeRateLimit, resendVerificationCodeController)
+router.post("/login", loginRateLimit, loginController)
+router.get("/refresh-token", refreshTokenController)
+router.delete("/logout", authenticateUser, logoutController)
+router.post("/forgot-password", forgotPasswordRateLimit, forgotPasswordController)
+router.post("/reset-password/:token", resetPasswordRateLimit, resetPasswordController)
 
 module.exports = router

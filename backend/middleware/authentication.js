@@ -1,7 +1,5 @@
-const crypto = require("crypto");
 const CustomError = require('../errors');
-const { isTokenValid } = require("../utils/index");
-const Token = require('../models/Token');
+const { isTokenValid } = require("../utils");
 
 const authenticateUser = async (req, res, next) => {
   const authHeader = req.headers.authorization

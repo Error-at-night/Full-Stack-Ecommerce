@@ -1,4 +1,4 @@
-const sendEmail = require('./sendEmail');
+const sendEmail = require('../../sendEmail');
 
 const resetPasswordSuccessEmail = async ({ fullName, email }) => {
   const message = `<p>Your password has been reset</p>`

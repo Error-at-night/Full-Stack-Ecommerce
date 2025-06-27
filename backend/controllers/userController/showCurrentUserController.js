@@ -1,7 +1,7 @@
-const CustomError = require("../errors")
+const CustomError = require("../../errors")
 const { StatusCodes } = require("http-status-codes")
 
-const showCurrentUser = async (req, res, next) => {
+const showCurrentUserController = async (req, res, next) => {
   try {
     if (!req.user) {
       throw new CustomError.UnauthenticatedError("Authentication invalid")
@@ -12,6 +12,4 @@ const showCurrentUser = async (req, res, next) => {
   }
 }
 
-module.exports = {
-  showCurrentUser
-}
+module.exports = showCurrentUserController
