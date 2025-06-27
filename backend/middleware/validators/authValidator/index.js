@@ -1,5 +1,6 @@
-const registerValidator = require("./registerValidator")
+const { registerValidator, sanitizeRegisterInput } = require("./registerValidator")
 
 module.exports = {
-  registerValidator
+  registerValidator,
+  sanitizeRegisterInput
 }

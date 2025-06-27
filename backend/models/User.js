@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const validator = require("validator")
 const bcrypt = require('bcryptjs');
 
-const emailPattern = /@gmail\.com$/i
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/
 
 const UserSchema = new mongoose.Schema({
@@ -27,7 +27,7 @@ const UserSchema = new mongoose.Schema({
         validator: function(value) {
           return emailPattern.test(value);
         },
-        message: "Please provide a valid email address (eg johndoe@gmail.com)",
+        message: "Please provide a valid email address",
       },
       {
         validator: function(value) {
