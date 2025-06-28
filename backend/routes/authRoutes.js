@@ -23,11 +23,7 @@ const {
 
 const { authenticateUser } = require("../middleware/authentication")
 
-const { registerValidator, sanitizeRegisterInput } = require("../middleware/validators/authValidator")
-
-const validateInputs = require("../middleware/validators/validateInput")
-
-router.post("/register", registerRateLimit, registerValidator, validateInputs, sanitizeRegisterInput(["fullName, email"]), registerController)
+router.post("/register", registerRateLimit, registerController)
 router.post("/verify-email", verifyEmailRateLimit, verifyEmailController)
 router.post("/resend-verification-code", resendVerificationCodeRateLimit, resendVerificationCodeController)
 router.post("/login", loginRateLimit, loginController)

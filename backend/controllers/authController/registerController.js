@@ -4,7 +4,7 @@ const { StatusCodes } = require("http-status-codes")
 const { sendVerificationEmail } = require("../../utils")
 
 const register = async (req, res, next) => {
-  const { fullName, email, password, confirmPassword } = req.body
+  const { fullName, email, password, confirmPassword } = req.body || {}
 
   try {
 

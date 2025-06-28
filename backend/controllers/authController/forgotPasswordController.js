@@ -5,7 +5,7 @@ const { sendResetPasswordEmail, createHash } = require("../../utils")
 const crypto = require('crypto');
 
 const forgotPasswordController = async (req, res, next) => {
-  const { email } = req.body
+  const { email } = req.body || {}
 
   try {
 

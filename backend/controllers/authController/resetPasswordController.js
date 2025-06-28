@@ -5,9 +5,7 @@ const { createHash, resetPasswordSuccessEmail } = require("../../utils")
 
 const resetPassword = async (req, res, next) => {
   const { token } = req.params
-  const { password, confirmPassword } = req.body
-
-  console.log("REQ BODY:", req.body)
+  const { password, confirmPassword } = req.body || {}
 
   try {
     if (!password) {

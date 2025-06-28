@@ -1,9 +1,7 @@
 const mongoose = require("mongoose")
 const validator = require("validator")
 const bcrypt = require('bcryptjs');
-
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const passwordPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/
+const { emailPattern, passwordPattern } = require("../utils")
 
 const UserSchema = new mongoose.Schema({
   fullName: {

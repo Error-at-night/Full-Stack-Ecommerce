@@ -5,6 +5,7 @@ const resendVerificationCodeEmail = require('./emails/authEmail/resendVerificati
 const sendResetPasswordEmail = require("./emails/authEmail/sendResetPasswordEmail")
 const resetPasswordSuccessEmail = require("./emails/authEmail/resetPasswordSuccessEmail")
 const createHash = require("./createHash")
+const { emailPattern, passwordPattern } = require("./patterns")
 
 module.exports = {
   createAccessTokenJWT,
@@ -15,5 +16,7 @@ module.exports = {
   resendVerificationCodeEmail,
   sendResetPasswordEmail,
   resetPasswordSuccessEmail,
-  createHash
+  createHash,
+  emailPattern,
+  passwordPattern
 };

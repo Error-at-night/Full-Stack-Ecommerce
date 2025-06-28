@@ -3,7 +3,7 @@ const CustomError = require("../../errors")
 const { StatusCodes } = require("http-status-codes")
 
 const verifyEmail = async (req, res, next) => {
-  const { verificationCode } = req.body
+  const { verificationCode } = req.body || {}
 
   try {
     const user = await User.findOne({ verificationCode })
