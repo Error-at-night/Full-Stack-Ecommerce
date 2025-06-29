@@ -4,12 +4,8 @@ import { Toaster } from "react-hot-toast";
 
 import { NavigateHandler, ProtectedRoute, Layout } from "./components";
 
-import Register from "./pages/authentication/Register"
-import Login from "./pages/authentication/Login";
-import VerifyEmail from "./pages/authentication/VerifyEmail";
-import ResendVerificationCode from "./pages/authentication/ResendVerificationCode";
-import ForgotPassword from "./pages/authentication/ForgotPassword";
-import ResetPassword from "./pages/authentication/ResetPassword";
+import { Register, Login, VerifyEmail, ResendVerificationCode, ForgotPassword, ResetPassword } from "./pages/authentication"
+
 import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient({
