@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const validator = require("validator")
 const bcrypt = require('bcryptjs');
-const { fullName, emailPattern, passwordPattern } = require("../utils")
+const { fullNamePattern, emailPattern, passwordPattern } = require("../utils")
 
 const UserSchema = new mongoose.Schema({
   fullName: {
@@ -11,12 +11,9 @@ const UserSchema = new mongoose.Schema({
     trim: true,
     validate: {
       validator: function (value) {
-        const isValidLength = validator.isLength(value, { min: 7 })
-        const isAlphaWithSpaces = fullName.test(value)
-        return isValidLength && isAlphaWithSpaces
+        return fullNamePattern.test(value)
       },
-      message:
-        "Fullname must be at least 7 characters long and contain only letters and spaces",
+      message: "Fullname must be at least 7 characters long and contain only letters and space",
     },
   },
   email: {

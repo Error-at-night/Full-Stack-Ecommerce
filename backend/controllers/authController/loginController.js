@@ -6,7 +6,9 @@ const { attachCookiesToResponse, createTokenUser, createHash, createAccessTokenJ
 const crypto = require('crypto');
 
 const login = async (req, res, next) => {
-  const { email, password } = req.body || {}
+  const { email, password: rawPassword } = req.body || {}
+
+  const password = rawPassword?.trim()
   
   try {
     if (!email || !password) {
