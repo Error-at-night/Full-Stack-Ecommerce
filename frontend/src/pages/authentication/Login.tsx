@@ -5,6 +5,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { useLogin } from '../../hooks/authentication';
 import { ButtonSpinner } from "../../components";
 import { Link } from "react-router-dom";
+import { emailPattern, passwordPattern } from "../../utils/regexPatterns";
 
 function Login() {
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -34,10 +35,9 @@ function Login() {
             {...register("email", {
               required: "Please provide your email",
               validate: (value) => {
-                const emailPattern = /^[\w.-]+@gmail\.com$/i;
 
                 if (!emailPattern.test(value)) {
-                  return "Please provide a valid email address (eg johndoe@gmail.com)";
+                  return "Please provide a valid email address (For example: johndoe@gmail.com)";
                 }
 
                 const firstPart = value.split("@")[0];
@@ -61,8 +61,8 @@ function Login() {
               {...register("password", {
                 required: "Please provide your password",
                 pattern: {
-                  value: /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/,
-                  message: "Password must be at least 8 characters, include an uppercase letter, number, and symbol",
+                  value: passwordPattern,
+                  message: "Password must be at least 8 characters, and include an uppercase letter, number, and symbol",
                 },
               })}
               disabled={isPending}

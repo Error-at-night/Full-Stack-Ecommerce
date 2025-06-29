@@ -5,6 +5,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { useRegister } from '../../hooks/authentication';
 import { ButtonSpinner } from "../../components";
 import { Link } from "react-router-dom";
+import { emailPattern, passwordPattern } from "../../utils/regexPatterns";
 
 function Register() {
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -34,8 +35,9 @@ function Register() {
           <input type="text" id="name" className={`${errors.fullName ? 
             "border-red-500 focus:border-red-500 focus:outline-none" : "border-[#DAE1E7]"} border w-full py-2 px-4 rounded-md`}
             {...register("fullName", { required: "Please provide your fullname",  minLength: { value: 7,
-                message: "Fullname must be at least 7 characters",
-              }})
+                  message: "Fullname must be at least 7 characters (For example: John Doe)",
+                },
+              })
             }
             disabled={isPending}
           />
@@ -47,12 +49,11 @@ function Register() {
             className={`${errors.email ? 
               "border-red-500 focus:border-red-500 focus:outline-none" : "border-[#DAE1E7]"} border w-full py-2 px-4 rounded-md`}
             {...register("email", {
-              required: "Please provide your email",
+              required: "Please provide your email (For example: johndoe@gmail.com)",
               validate: (value) => {
-                const emailPattern = /^[\w.-]+@gmail\.com$/i;
 
                 if (!emailPattern.test(value)) {
-                  return "Please provide a valid email address (eg johndoe@gmail.com)";
+                  return "Please provide a valid email address (For example: johndoe@gmail.com)";
                 }
 
                 const firstPart = value.split("@")[0];
@@ -76,8 +77,8 @@ function Register() {
               {...register("password", {
                 required: "Please provide your password",
                 pattern: {
-                  value: /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/,
-                  message: "Password must be at least 8 characters, include an uppercase letter, number, and symbol",
+                  value: passwordPattern,
+                  message: "Password must be at least 8 characters, and include an uppercase letter, number, and symbol",
                 },
               })}
               disabled={isPending}

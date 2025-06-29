@@ -7,6 +7,7 @@ import { ButtonSpinner } from "../../components";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { passwordPattern } from "../../utils/regexPatterns";
 
 function ResetPassword() {
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -48,7 +49,7 @@ function ResetPassword() {
               {...register("password", {
                 required: "Please provide your password",
                 pattern: {
-                  value: /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/,
+                  value: passwordPattern,
                   message: "Password must be at least 8 characters, include an uppercase letter, number, and symbol",
                 },
               })}

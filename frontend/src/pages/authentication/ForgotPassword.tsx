@@ -4,6 +4,7 @@ import { useForgotPassword } from "../../hooks/authentication";
 import { ButtonSpinner } from "../../components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { emailPattern } from "../../utils/regexPatterns";
 
 function ForgotPassword() {
   const [emailSubmitted, setEmailSubmitted] = useState("")
@@ -44,10 +45,9 @@ function ForgotPassword() {
               {...register("email", {
                 required: "Please provide your email",
                 validate: (value) => {
-                  const emailPattern = /^[\w.-]+@gmail\.com$/i
 
                   if (!emailPattern.test(value)) {
-                    return "Please provide a valid email address (eg johndoe@gmail.com)"
+                    return "Please provide a valid email address (For example: johndoe@gmail.com)"
                   }
 
                   const firstPart = value.split("@")[0];

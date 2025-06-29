@@ -2,6 +2,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import type { ResendVerificationCodeFormData } from "../../utils/types";
 import { ButtonSpinner } from "../../components";
 import { useResendVerificationCode } from "../../hooks/authentication";
+import { emailPattern } from "../../utils/regexPatterns";
 
 function ResendVerificationCode() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<ResendVerificationCodeFormData>();
@@ -29,10 +30,9 @@ function ResendVerificationCode() {
             {...register("email", {
               required: "Please provide your email",
               validate: (value) => {
-                const emailPattern = /^[\w.-]+@gmail\.com$/i
 
                 if (!emailPattern.test(value)) {
-                  return "Please provide a valid email address (eg johndoe@gmail.com)"
+                  return "Please provide a valid email address (For example: johndoe@gmail.com)"
                 }
 
                 const firstPart = value.split("@")[0];
