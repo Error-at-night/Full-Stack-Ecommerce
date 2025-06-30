@@ -6,6 +6,7 @@ const sendResetPasswordEmail = require("./emails/authEmail/sendResetPasswordEmai
 const resetPasswordSuccessEmail = require("./emails/authEmail/resetPasswordSuccessEmail")
 const createHash = require("./createHash")
 const { emailPattern, passwordPattern } = require("./regexPatterns")
+const checkPermissions = require("./checkPermissions")
 
 module.exports = {
   createAccessTokenJWT,
@@ -18,5 +19,6 @@ module.exports = {
   resetPasswordSuccessEmail,
   createHash,
   emailPattern,
-  passwordPattern
+  passwordPattern,
+  checkPermissions
 };

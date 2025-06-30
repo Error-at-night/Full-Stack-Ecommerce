@@ -2,6 +2,7 @@ const { StatusCodes } = require("http-status-codes")
 const User = require("../../models/User")
 const mongoose = require("mongoose")
 const CustomError = require("../../errors")
+const { checkPermissions } = require("../../utils")
 
 const getSingleUserController = async (req, res, next) => {
   const { id: userId } = req.params
@@ -16,6 +17,8 @@ const getSingleUserController = async (req, res, next) => {
     if(!user) {
       throw new CustomError.NotFoundError("User not found")
     }
+
+    checkPermissions(req.user, user._id)
     
     res.status(StatusCodes.OK).json({ user })
 
