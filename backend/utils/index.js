@@ -7,6 +7,7 @@ const sendResetPasswordSuccessEmail = require("./emails/authEmail/sendResetPassw
 const createHash = require("./createHash")
 const { emailPattern, passwordPattern } = require("./regexPatterns")
 const checkPermissions = require("./checkPermissions")
+const sendUpdateUserSuccessEmail = require("./emails/userEmail/sendUpdateUserSuccessEmail")
 const sendUpdateUserPasswordSuccessEmail = require("./emails/userEmail/sendUpdateUserPasswordSucessEmail")
 
 module.exports = {
@@ -22,5 +23,6 @@ module.exports = {
   emailPattern,
   passwordPattern,
   checkPermissions,
+  sendUpdateUserSuccessEmail,
   sendUpdateUserPasswordSuccessEmail
 };

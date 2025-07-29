@@ -1,6 +1,6 @@
 const sendEmail = require('../../sendEmail');
 
-const sendResetPassswordEmail = async ({ fullName, email, token, origin }) => {
+const sendUpdateUserSuccessEmail = async ({ fullName, email, token, origin }) => {
   const message = `<p>You have successfully updated your name and email</p>
   <p>If this was not done by you, kindly reach out to the support team</p>
   `;
@@ -14,4 +14,4 @@ const sendResetPassswordEmail = async ({ fullName, email, token, origin }) => {
   });
 };
 
-module.exports = sendResetPassswordEmail;
+module.exports = sendUpdateUserSuccessEmail;

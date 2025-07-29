@@ -1,7 +1,7 @@
 const { StatusCodes } = require("http-status-codes")
 const User = require("../../models/User")
 const CustomError = require("../../errors")
-const { createTokenUser, createAccessTokenJWT, attachCookiesToResponse, createHash } = require("../../utils")
+const { createTokenUser, createAccessTokenJWT, attachCookiesToResponse, createHash, sendUpdateUserSuccessEmail } = require("../../utils")
 const crypto = require("crypto")
 const Token = require("../../models/Token")
 
@@ -41,7 +41,7 @@ const updateUserController = async (req, res, next) => {
 
     attachCookiesToResponse({ res, user: tokenUser, refreshToken })
 
-    await sendVerificationEmail({ email: user.email, fullName: user.fullName, verificationCode: user.verificationCode })
+    await sendUpdateUserSuccessEmail({ email: user.email, fullName: user.fullName })
     
     res.status(StatusCodes.OK).json({ message: "You have successfully updated your name and email", user: tokenUser, accessToken: accessTokenJWT })
 
