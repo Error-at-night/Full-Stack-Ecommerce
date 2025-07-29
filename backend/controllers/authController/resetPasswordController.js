@@ -1,7 +1,7 @@
 const User = require("../../models/User")
 const CustomError = require("../../errors")
 const { StatusCodes } = require("http-status-codes")
-const { createHash, resetPasswordSuccessEmail } = require("../../utils")
+const { createHash, sendResetPasswordSuccessEmail } = require("../../utils")
 
 const resetPassword = async (req, res, next) => {
   const { token } = req.params
@@ -39,7 +39,7 @@ const resetPassword = async (req, res, next) => {
     user.passwordTokenExpirationDate = null
     await user.save()
 
-    await resetPasswordSuccessEmail({ fullName: user.fullName, email: user.email })
+    await sendResetPasswordSuccessEmail({ fullName: user.fullName, email: user.email })
 
     res.status(StatusCodes.OK).json({ message: "Password reset successful" })
 

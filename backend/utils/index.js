@@ -3,10 +3,11 @@ const createTokenUser = require('./createTokenUser');
 const sendVerificationEmail = require("./emails/authEmail/sendVerificationEmail");
 const resendVerificationCodeEmail = require('./emails/authEmail/resendVerificationCodeEmail');
 const sendResetPasswordEmail = require("./emails/authEmail/sendResetPasswordEmail")
-const resetPasswordSuccessEmail = require("./emails/authEmail/resetPasswordSuccessEmail")
+const sendResetPasswordSuccessEmail = require("./emails/authEmail/sendResetPasswordSuccessEmail")
 const createHash = require("./createHash")
 const { emailPattern, passwordPattern } = require("./regexPatterns")
 const checkPermissions = require("./checkPermissions")
+const sendUpdateUserPasswordSuccessEmail = require("./emails/userEmail/sendUpdateUserPasswordSucessEmail")
 
 module.exports = {
   createAccessTokenJWT,
@@ -16,9 +17,10 @@ module.exports = {
   sendVerificationEmail,
   resendVerificationCodeEmail,
   sendResetPasswordEmail,
-  resetPasswordSuccessEmail,
+  sendResetPasswordSuccessEmail,
   createHash,
   emailPattern,
   passwordPattern,
-  checkPermissions
+  checkPermissions,
+  sendUpdateUserPasswordSuccessEmail
 };

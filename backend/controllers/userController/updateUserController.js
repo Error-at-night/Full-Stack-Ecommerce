@@ -40,6 +40,8 @@ const updateUserController = async (req, res, next) => {
     const accessTokenJWT = createAccessTokenJWT({ payload: { user: tokenUser } })
 
     attachCookiesToResponse({ res, user: tokenUser, refreshToken })
+
+    await sendVerificationEmail({ email: user.email, fullName: user.fullName, verificationCode: user.verificationCode })
     
     res.status(StatusCodes.OK).json({ message: "You have successfully updated your name and email", user: tokenUser, accessToken: accessTokenJWT })
 
