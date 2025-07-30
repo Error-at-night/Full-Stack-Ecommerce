@@ -18,6 +18,8 @@ const updateUserController = async (req, res, next) => {
 
     const user = await User.findOne({ _id: req.user.userId })
 
+    const previousEmail = user.email
+
     user.fullName = fullName
     user.email = email
 
@@ -41,7 +43,7 @@ const updateUserController = async (req, res, next) => {
 
     attachCookiesToResponse({ res, user: tokenUser, refreshToken })
 
-    await sendUpdateUserSuccessEmail({ email: user.email, fullName: user.fullName })
+    await sendUpdateUserSuccessEmail({ email: previousEmail, fullName: user.fullName })
     
     res.status(StatusCodes.OK).json({ message: "You have successfully updated your name and email", user: tokenUser, accessToken: accessTokenJWT })
 
