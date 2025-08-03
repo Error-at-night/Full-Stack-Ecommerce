@@ -6,7 +6,8 @@ import { NavigateHandler, ProtectedRoute, Layout } from "./components";
 
 import { Register, Login, VerifyEmail, ResendVerificationCode, ForgotPassword, ResetPassword } from "./pages/authentication"
 
-import Dashboard from "./pages/Dashboard";
+// import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,8 +29,8 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route index element={<Navigate replace to="dashboard" />} />
-            <Route path="dashboard" element={<Dashboard/>} />
+            <Route index element={<Navigate replace to="home" />} />
+            <Route path="home" element={<Home/>} />
           </Route>
           <Route path="register" element={<Register/>} />
           <Route path="verify-email" element={<VerifyEmail/>} />

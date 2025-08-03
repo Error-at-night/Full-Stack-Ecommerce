@@ -1,7 +1,7 @@
 const Product = require("../../models/Product")
 const { StatusCodes } = require("http-status-codes")
 
-const getAllProductController = async (req, res, next) => {
+const getAllProductsController = async (req, res, next) => {
   const { category, brand, price, color, sort, page = 1, limit = 10 } = req.query
 
   const queryObject = {}
@@ -54,4 +54,4 @@ const getAllProductController = async (req, res, next) => {
   }
 }
 
-module.exports = getAllProductController
+module.exports = getAllProductsController

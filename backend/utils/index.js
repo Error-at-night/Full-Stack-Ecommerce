@@ -9,6 +9,7 @@ const { emailPattern, passwordPattern } = require("./regexPatterns")
 const checkPermissions = require("./checkPermissions")
 const sendUpdateUserSuccessEmail = require("./emails/userEmail/sendUpdateUserSuccessEmail")
 const sendUpdateUserPasswordSuccessEmail = require("./emails/userEmail/sendUpdateUserPasswordSucessEmail")
+const cloudinary = require("./cloudinary")
 
 module.exports = {
   createAccessTokenJWT,
@@ -24,5 +25,6 @@ module.exports = {
   passwordPattern,
   checkPermissions,
   sendUpdateUserSuccessEmail,
-  sendUpdateUserPasswordSuccessEmail
+  sendUpdateUserPasswordSuccessEmail,
+  cloudinary
 };

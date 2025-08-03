@@ -14,7 +14,7 @@ function useLogin() {
     onSuccess: (data) => {
       dispatch(setAuthData({ user: { user: data.user }, accessToken: data.accessToken }))
       toast.success(data.message || "Login successful")
-      navigate("/dashboard", { replace: true })
+      navigate("/home", { replace: true })
     },
     onError: (error) => {
       toast.error(error.message || "There was an error when trying to log you in")
