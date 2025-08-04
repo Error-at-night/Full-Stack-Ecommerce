@@ -4,7 +4,11 @@ const { StatusCodes } = require("http-status-codes")
 const { sendUpdateUserPasswordSuccessEmail } = require("../../utils")
 
 const updateUserPasswordController = async (req, res, next) => {
-  const { currentPassword, newPassword, newConfirmPassword } = req.body || {}
+  const { currentPassword: rawCurrentPassword, newPassword: rawNewPassword, newConfirmPassword: rawNewConfirmPassword } = req.body || {}
+
+  const currentPassword = rawCurrentPassword?.trim()
+  const newPassword = rawNewPassword?.trim()
+  const newConfirmPassword = rawNewConfirmPassword?.trim() 
 
   try {
     if(!currentPassword || !newPassword || !newConfirmPassword) {

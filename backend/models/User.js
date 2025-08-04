@@ -8,6 +8,7 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide your fullname"],
     minlength: [7, "Fullname must be at least 7 characters long (For example: John Doe)"],
+    match: [/^[A-Za-z\s]+$/, "Fullname must contain only alphabets and space"],
   },
   email: {
     type: String,

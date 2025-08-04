@@ -42,7 +42,7 @@ const ProductSchema = new mongoose.Schema({
   },
   stock: {
     type: Number,
-    default: 20,
+    default: 5,
     required: true
   },
   category: {
@@ -53,7 +53,7 @@ const ProductSchema = new mongoose.Schema({
   subCategory: {
     type: String,
     required: [true, "Please provide the sub category for this product"],
-    enum: ["Shirt", "Trouser", "Watch", "Shoes", "Bags"]
+    enum: ["Shirt", "Trouser", "Watch", "Shoe", "Bag"]
   },
   brand: {
     type: String,
@@ -64,6 +64,13 @@ const ProductSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   }
-}, { timestamps: true })
+}, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } })
+
+ProductSchema.virtual("reviews", {
+  ref: "Review",
+  localField: "_id",
+  foreignField: "product",
+  justOne: false,
+})
 
 module.exports = mongoose.model("Product", ProductSchema)

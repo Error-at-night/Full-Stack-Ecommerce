@@ -10,6 +10,6 @@ router.get("/", authenticateUser, getAllProductsController)
 router.post("/upload-image", authenticateUser, authorizePermissions("admin"), upload.single("image"), uploadImageController)
 router.get("/:id", authenticateUser, getSingleProductController)
 router.patch("/:id", authenticateUser, authorizePermissions("admin"), updateProductController)
-router.delete("/:id", authorizePermissions("admin"), deleteProductController)
+router.delete("/:id", authenticateUser, authorizePermissions("admin"), deleteProductController)
 
 module.exports = router

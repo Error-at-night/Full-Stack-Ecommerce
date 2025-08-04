@@ -1,5 +1,6 @@
 const Product = require("../../models/Product")
 const { StatusCodes } = require("http-status-codes")
+const CustomError = require("../../errors")
 
 const createProductController = async (req, res, next) => {
   const { name: rawName, description: rawDescription, image, size, price, stock, category, subCategory, brand, featured } = req.body || {}
@@ -8,7 +9,7 @@ const createProductController = async (req, res, next) => {
   const description = rawDescription?.trim()
 
   try {
-    if(!name || description || !image || !size || !price || !stock || !category || !subCategory || !brand || !featured) {
+    if(!name || !description || !image || !size || !price || !stock || !category || !subCategory || !brand || !featured) {
       throw new CustomError.BadRequestError("All fields are required")
     }
 

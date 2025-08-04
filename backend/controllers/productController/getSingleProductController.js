@@ -10,7 +10,7 @@ const getSingleProductController = async (req, res, next) => {
       throw new CustomError.BadRequestError("Something went wrong")
     }
 
-    const product = Product.findOne({ _id: productId })
+    const product = await Product.findOne({ _id: productId }).populate("reviews")
 
     if(!product) {
       throw new CustomError.NotFoundError("Product not found")
