@@ -8,7 +8,7 @@ const deleteReviewController = async (req, res, next) => {
       throw new CustomError.BadRequestError("Something went wrong")
     }
 
-    const review = Review.findOne({ _id: reviewId })
+    const review = await Review.findOne({ _id: reviewId })
 
     if(!review) {
       throw new CustomError.NotFoundError("Review not found")
