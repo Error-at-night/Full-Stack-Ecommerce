@@ -2,12 +2,13 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 
-import { NavigateHandler, ProtectedRoute, Layout } from "./components";
+import { NavigateHandler } from "./components";
 
-import { Register, Login, VerifyEmail, ResendVerificationCode, ForgotPassword, ResetPassword } from "./pages/authentication"
+import { ProtectedRoute, Layout } from "./ui"
 
-// import Dashboard from "./pages/Dashboard";
-import Home from "./pages/Home";
+import { Register, Login, VerifyEmail, ResendVerificationCode, ForgotPassword, ResetPassword } from "./pages/auth"
+
+import Home from "./pages/home";
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { setNavigator } from "../utils/helpers/navigate";
+import { setNavigator } from "../utils/helpers";
 
 function NavigateHandler() {
   const navigate = useNavigate()

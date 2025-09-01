@@ -1,10 +1,10 @@
 import axios, { AxiosError, type AxiosRequestConfig, type AxiosResponse } from 'axios';
 import { BASE_URL } from "./constants";
 import toast from "react-hot-toast";
-import { navigate } from "./helpers/navigate";
+import { navigate } from "./helpers";
 import { startRefresh, endRefresh, setAuthData, clearAuthData } from "../features/auth/authSlice";
 import { store } from "../store/store";
-import { refreshToken } from "../services/authentication";
+import { refreshToken } from "../services/auth";
 
 interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   _retry?: boolean
@@ -18,8 +18,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   const accessToken = store.getState().auth.accessToken
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`
+  if(config.url && !config.url.includes("/auth/refresh-token")) {
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`
+    }
   }
   return config
   }, (error) => {
@@ -38,7 +40,7 @@ axiosInstance.interceptors.response.use(
         try {
           store.dispatch(startRefresh())
           const data = await refreshToken()
-          store.dispatch(setAuthData({ user: { user: data.user }, accessToken: data.accessToken}))
+          store.dispatch(setAuthData({ user: { user: data.user }, accessToken: data.accessToken }))
           return axiosInstance(originalRequest)
         } catch (error) {
           store.dispatch(clearAuthData())
