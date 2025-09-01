@@ -1,14 +1,19 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "react-hot-toast";
 
 import { NavigateHandler } from "./components";
 
-import { ProtectedRoute, Layout } from "./ui"
+import { ProtectedRoute, Layout, LoadingSpinner, AppToaster } from "./ui"
 
-import { Register, Login, VerifyEmail, ResendVerificationCode, ForgotPassword, ResetPassword } from "./pages/auth"
+const Register = lazy(() => import("./pages/auth/Register"));
+const Login = lazy(() => import("./pages/auth/Login"));
+const VerifyEmail = lazy(() => import("./pages/auth/VerifyEmail"));
+const ResendVerificationCode = lazy(() => import("./pages/auth/ResendVerificationCode"));
+const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
+const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 
-import Home from "./pages/home";
+const Home = lazy(() => import("./pages/home"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,36 +36,17 @@ function App() {
             }
           >
             <Route index element={<Navigate replace to="home" />} />
-            <Route path="home" element={<Home/>} />
+            <Route path="home" element={<Suspense fallback={<LoadingSpinner/>}><Home/></Suspense>} />
           </Route>
-          <Route path="register" element={<Register/>} />
-          <Route path="verify-email" element={<VerifyEmail/>} />
-          <Route path="resend-verification-code" element={<ResendVerificationCode/>} />
-          <Route path="login" element={<Login/>} />
-          <Route path="forgot-password" element={<ForgotPassword/>} />
-          <Route path="reset-password/:token" element={<ResetPassword/>} />
+          <Route path="register" element={<Suspense fallback={<LoadingSpinner/>}><Register/></Suspense>} />
+          <Route path="verify-email" element={<Suspense fallback={<LoadingSpinner/>}><VerifyEmail/></Suspense>} />
+          <Route path="resend-verification-code" element={<Suspense fallback={<LoadingSpinner/>}><ResendVerificationCode/></Suspense>} />
+          <Route path="login" element={<Suspense fallback={<LoadingSpinner/>}><Login/></Suspense>} />
+          <Route path="forgot-password" element={<Suspense fallback={<LoadingSpinner/>}><ForgotPassword/></Suspense>} />
+          <Route path="reset-password/:token" element={<Suspense fallback={<LoadingSpinner/>}><ResetPassword/></Suspense>} />
         </Routes>
       </BrowserRouter>
-      <Toaster
-        position="top-center"
-        gutter={12}
-        containerStyle={{ margin: "8px" }}
-        toastOptions={{
-          success: {
-            duration: 5000,
-          },
-          error: {
-            duration: 5000,
-          },
-          style: {
-            fontSize: "16px",
-            maxWidth: "350px",
-            padding: "16px 15px",
-            backgroundColor: "white",
-            color: "black",
-          },
-        }}
-      />
+      <AppToaster/>
     </QueryClientProvider>
   )
 }
