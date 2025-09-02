@@ -13,6 +13,9 @@ const ResendVerificationCode = lazy(() => import("./pages/auth/ResendVerificatio
 const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 
+import AdminLayout from "./pages/admin";
+import ManageProducts from "./pages/admin/manageProducts";
+
 const Home = lazy(() => import("./pages/home"));
 
 const queryClient = new QueryClient({
@@ -29,15 +32,25 @@ function App() {
       <BrowserRouter>
         <NavigateHandler/>
         <Routes>
+          {/* protected routes (users) */}
           <Route element={
-              <ProtectedRoute>
-                <Layout/>
-              </ProtectedRoute>
-            }
+            <ProtectedRoute>
+              <Layout/>
+            </ProtectedRoute>}
           >
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Suspense fallback={<LoadingSpinner/>}><Home/></Suspense>} />
           </Route>
+          {/* protected routes (admin) */}
+          <Route path="admin" element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>}
+          >
+            <Route index element={<Navigate replace to="manage-product"/>} />
+            <Route path="manage-product" element={<Suspense fallback={<LoadingSpinner/>}><ManageProducts/></Suspense>}/>
+          </Route>
+          {/* public routes */}
           <Route path="register" element={<Suspense fallback={<LoadingSpinner/>}><Register/></Suspense>} />
           <Route path="verify-email" element={<Suspense fallback={<LoadingSpinner/>}><VerifyEmail/></Suspense>} />
           <Route path="resend-verification-code" element={<Suspense fallback={<LoadingSpinner/>}><ResendVerificationCode/></Suspense>} />
