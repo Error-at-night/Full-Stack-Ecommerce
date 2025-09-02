@@ -14,7 +14,7 @@ const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 
 import AdminLayout from "./pages/admin";
-import ManageProducts from "./pages/admin/manageProducts";
+const ManageProducts = lazy(() => import("./pages/admin/manageProducts"));
 
 const Home = lazy(() => import("./pages/home"));
 
@@ -31,35 +31,37 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <NavigateHandler/>
-        <Routes>
-          {/* protected routes (users and admin) */}
-          <Route element={
-            <ProtectedRoute roles={["user", "admin"]}>
-              <Layout/>
-            </ProtectedRoute>}
-          >
-            <Route index element={<Navigate replace to="home" />} />
-            <Route path="home" element={<Suspense fallback={<LoadingSpinner/>}><Home/></Suspense>} />
-          </Route>
+        <Suspense fallback={<LoadingSpinner/>}>
+          <Routes>
+            {/* protected routes (users and admin) */}
+            <Route element={
+              <ProtectedRoute>
+                <Layout/>
+              </ProtectedRoute>}
+            >
+              <Route index element={<Navigate replace to="home"/>} />
+              <Route path="home" element={<Home/>} />
+            </Route>
 
-          {/* protected routes (admin only) */}
-          <Route path="admin" element={
-            <ProtectedRoute roles={["admin"]}>
-              <AdminLayout />
-            </ProtectedRoute>}
-          >
-            <Route index element={<Navigate replace to="manage-product"/>} />
-            <Route path="manage-product" element={<Suspense fallback={<LoadingSpinner/>}><ManageProducts/></Suspense>}/>
-          </Route>
-          
-          {/* public routes */}
-          <Route path="register" element={<Suspense fallback={<LoadingSpinner/>}><Register/></Suspense>} />
-          <Route path="verify-email" element={<Suspense fallback={<LoadingSpinner/>}><VerifyEmail/></Suspense>} />
-          <Route path="resend-verification-code" element={<Suspense fallback={<LoadingSpinner/>}><ResendVerificationCode/></Suspense>} />
-          <Route path="login" element={<Suspense fallback={<LoadingSpinner/>}><Login/></Suspense>} />
-          <Route path="forgot-password" element={<Suspense fallback={<LoadingSpinner/>}><ForgotPassword/></Suspense>} />
-          <Route path="reset-password/:token" element={<Suspense fallback={<LoadingSpinner/>}><ResetPassword/></Suspense>} />
-        </Routes>
+            {/* protected routes (admin only) */}
+            <Route path="admin" element={
+              <ProtectedRoute roles={["admin"]}>
+                <AdminLayout />
+              </ProtectedRoute>}
+            >
+              <Route index element={<Navigate replace to="manage-product"/>} />
+              <Route path="manage-product" element={<ManageProducts/>} />
+            </Route>
+
+            {/* public routes */}
+            <Route path="register" element={<Register/>} />
+            <Route path="verify-email" element={<VerifyEmail/>} />
+            <Route path="resend-verification-code" element={<ResendVerificationCode/>} />
+            <Route path="login" element={<Login/>} />
+            <Route path="forgot-password" element={<ForgotPassword/>} />
+            <Route path="reset-password/:token" element={<ResetPassword/>} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
       <AppToaster/>
     </QueryClientProvider>
