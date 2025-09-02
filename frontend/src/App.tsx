@@ -32,24 +32,26 @@ function App() {
       <BrowserRouter>
         <NavigateHandler/>
         <Routes>
-          {/* protected routes (users) */}
+          {/* protected routes (users and admin) */}
           <Route element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["user", "admin"]}>
               <Layout/>
             </ProtectedRoute>}
           >
             <Route index element={<Navigate replace to="home" />} />
             <Route path="home" element={<Suspense fallback={<LoadingSpinner/>}><Home/></Suspense>} />
           </Route>
-          {/* protected routes (admin) */}
+
+          {/* protected routes (admin only) */}
           <Route path="admin" element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["admin"]}>
               <AdminLayout />
             </ProtectedRoute>}
           >
             <Route index element={<Navigate replace to="manage-product"/>} />
             <Route path="manage-product" element={<Suspense fallback={<LoadingSpinner/>}><ManageProducts/></Suspense>}/>
           </Route>
+          
           {/* public routes */}
           <Route path="register" element={<Suspense fallback={<LoadingSpinner/>}><Register/></Suspense>} />
           <Route path="verify-email" element={<Suspense fallback={<LoadingSpinner/>}><VerifyEmail/></Suspense>} />
