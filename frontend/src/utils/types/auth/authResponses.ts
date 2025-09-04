@@ -8,22 +8,6 @@ export type VerifyEmailResponse = {
 
 export type LoginResponse = {
   message: string;
-  user: {
-    fullName: string;
-    userId: string;
-    email: string;
-  },
-  accessToken: string;
-}
-
-
-export type RefreshTokenResponse = {
-  user: {
-    fullName: string;
-    userId: string;
-    email: string;
-  },
-  accessToken: string;
 }
 
 export type ResendVerificationCodeResponse = {

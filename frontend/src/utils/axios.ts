@@ -2,12 +2,28 @@ import axios, { AxiosError, type AxiosRequestConfig, type AxiosResponse } from '
 import { BASE_URL } from "./constants";
 import toast from "react-hot-toast";
 import { navigate } from "./helpers";
-import { startRefresh, endRefresh, setAuthData, clearAuthData } from "../features/auth/authSlice";
-import { store } from "../store/store";
 import { refreshToken } from "../services/auth";
 
 interface CustomAxiosRequestConfig extends AxiosRequestConfig {
   _retry?: boolean
+}
+
+let isRefreshing = false
+
+let failedQueue: {
+  resolve: (value?: unknown) => void
+  reject: (error: unknown) => void
+}[] = []
+
+const processQueue = (error: unknown, tokenRefreshed = false) => {
+  failedQueue.forEach((promise) => {
+    if (error) {
+      promise.reject(error)
+    } else {
+      promise.resolve(tokenRefreshed)
+    }
+  })
+  failedQueue = []
 }
 
 const axiosInstance = axios.create({
@@ -16,40 +32,34 @@ const axiosInstance = axios.create({
   timeout: 50000,
 })
 
-axiosInstance.interceptors.request.use((config) => {
-  const accessToken = store.getState().auth.accessToken
-  if(config.url && !config.url.includes("/auth/refresh-token")) {
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`
-    }
-  }
-  return config
-  }, (error) => {
-  return Promise.reject(error)
-})
-
 axiosInstance.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
     const originalRequest = error.config as CustomAxiosRequestConfig
-    
-    if (error.response?.status === 401 && !originalRequest._retry) {
+
+    if(error.response?.status === 401 && !originalRequest._retry && !originalRequest.url?.includes("/auth/refresh-token")) {
+      if(isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject })
+        })
+          .then(() => axiosInstance(originalRequest))
+          .catch((err) => Promise.reject(err))
+      }
+
       originalRequest._retry = true
-      
-      if (!store.getState().auth.isRefreshing) {
-        try {
-          store.dispatch(startRefresh())
-          const data = await refreshToken()
-          store.dispatch(setAuthData({ user: { user: data.user }, accessToken: data.accessToken }))
-          return axiosInstance(originalRequest)
-        } catch (error) {
-          store.dispatch(clearAuthData())
-          toast.error("Session expired, please login")
-          navigate("/login")
-          return Promise.reject(error)
-        } finally {
-          store.dispatch(endRefresh())
-        }
+      isRefreshing = true
+
+      try {
+        await refreshToken()
+        processQueue(null, true)
+        return axiosInstance(originalRequest)
+      } catch(err) {
+        processQueue(err, false)
+        toast.error("Session expired, please login")
+        navigate("/login")
+        return Promise.reject(err)
+      } finally {
+        isRefreshing = false
       }
     }
     return Promise.reject(error)

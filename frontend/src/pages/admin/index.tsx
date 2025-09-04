@@ -6,9 +6,7 @@ function AdminLayout() {
   return (
     <>
       <Sidebar/>
-      <div className="w-full">
-        <Navbar />
-      </div>
+      <Navbar />
       <Outlet/>
     </>
   )

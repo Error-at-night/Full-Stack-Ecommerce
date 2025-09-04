@@ -14,7 +14,10 @@ const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 
 import AdminLayout from "./pages/admin";
-const ManageProducts = lazy(() => import("./pages/admin/manageProducts"));
+const Dashboard = lazy(() => import("./pages/admin/dashboard"));
+const Products = lazy(() => import("./pages/admin/products"));
+const Users = lazy(() => import("./pages/admin/users"));
+const Orders = lazy(() => import("./pages/admin/orders"));
 
 const Home = lazy(() => import("./pages/home"));
 
@@ -49,8 +52,11 @@ function App() {
                 <AdminLayout />
               </ProtectedRoute>}
             >
-              <Route index element={<Navigate replace to="manage-product"/>} />
-              <Route path="manage-product" element={<ManageProducts/>} />
+              <Route index element={<Navigate replace to="dashboard"/>} />
+              <Route path="dashboard" element={<Dashboard/>} />
+              <Route path="products" element={<Products/>} />
+              <Route path="users" element={<Users/>} />
+              <Route path="orders" element={<Orders/>} />
             </Route>
 
             {/* public routes */}

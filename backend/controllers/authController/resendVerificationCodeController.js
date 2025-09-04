@@ -4,9 +4,7 @@ const { StatusCodes } = require("http-status-codes")
 const { resendVerificationCodeEmail } = require("../../utils")
 
 const resendVerificationCode = async (req, res, next) => {
-  const { email: rawEmail } = req.body || {}
-
-  const email = rawEmail?.trim()
+  const { email } = req.body || {}
 
   try {
 

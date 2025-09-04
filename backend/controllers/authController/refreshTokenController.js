@@ -43,11 +43,9 @@ const refreshToken = async (req, res, next) => {
       ip: req.ip,
     })
 
-    const newAccessTokenJWT = createAccessTokenJWT({ payload: { user: payload.user }})
-
     attachCookiesToResponse({ res, user: payload.user, refreshToken: newRefreshToken })
 
-    res.status(StatusCodes.OK).json({ user: payload.user, accessToken: newAccessTokenJWT })
+    res.sendStatus(StatusCodes.OK)
   } catch (error) {
     next(error)
   }

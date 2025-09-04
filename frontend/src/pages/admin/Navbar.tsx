@@ -1,37 +1,31 @@
-import { NavLink } from "react-router-dom"
-
-import { Bell, CalendarDays, Search } from "lucide-react"
+import { Gem, UserRound } from "lucide-react"
 
 import MobileNavbar from "./MobileNavbar"
 
+import { useShowCurrentUser } from "../../hooks/user"
+
 function Navbar() {
+  const { currentUser } = useShowCurrentUser()
+  const name = currentUser?.user?.fullName?.split(" ")[0] || ""
+
   return (
     <>
-      <nav className="bg-white lg:px-4 lg:py-3 hidden lg:flex lg:items-center lg:justify-between lg:ml-64">
-        <div className="relative">
-          <Search className="absolute inset-y-0 left-2 mt-3 text-gray-500" size={20} />
-          <input type="search" name="chef" placeholder="Search" className="pl-8 placeholder:mt-5" />
-        </div>
-        <div className="flex items-center gap-x-5">
-          <div className="flex items-center me-3 text-[#678096]">
-            <CalendarDays />
-            <p className="ms-2">22 Step, 2022</p>
+      <nav className="fixed top-0 left-0 right-0 max-w-full bg-white lg:shadow-xl lg:ml-64 lg:px-8 lg:py-8 hidden lg:flex lg:items-center lg:justify-between">
+        <div>
+          <div className="flex items-center space-x-2 text-black">
+            <Gem size={28} />
+            <h1 className="font-bold text-[1.2rem] logo">StyleHive</h1>
           </div>
-          <div className="flex items-center">
-            <NavLink to="/chef/notifications" className="text-[#678096]">
-              <Bell/>
-            </NavLink>
-            <div className="flex items-center ms-8">
-              <img src="" alt="user" className="h-10 w-10 rounded-full"/>
-              <div className="ms-2">
-                <p>Abidemi Malik</p>
-                <span className="text-[0.9rem] text-green-500">Available</span>
-              </div>
-            </div>
+        </div>
+        <div className="flex items-center logo">
+          <div className="w-9 h-9 rounded-full bg-gray-200 flex items-center justify-center">
+            <UserRound size={20} className="text-gray-700" />
+          </div>
+          <div className="ms-3">
+            <p className="font-bold text-[1.1rem]">Welcome, {name}</p>
           </div>
         </div>
       </nav>
-      {/* <Separator/> */}
       <MobileNavbar />
     </>
   )

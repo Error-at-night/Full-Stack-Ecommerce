@@ -6,12 +6,14 @@ const { emailPattern, passwordPattern } = require("../utils")
 const UserSchema = new mongoose.Schema({
   fullName: {
     type: String,
+    trim: true,
     required: [true, "Please provide your fullname"],
     minlength: [7, "Fullname must be at least 7 characters long (For example: John Doe)"],
-    match: [/^[A-Za-z\s]+$/, "Fullname must contain only alphabets and space"],
+    match: [/^[A-Za-z\s]+$/, "Fullname must contain only alphabets"],
   },
   email: {
     type: String,
+    trim: true,
     unique: true,
     required: [true, "Please provide your email"],
     lowercase: true,
@@ -42,7 +44,7 @@ const UserSchema = new mongoose.Schema({
       validator: function(value) {
         return passwordPattern.test(value);
       },
-      message: "Password must be at least 8 characters long, and include an uppercase letter, number, and symbol",
+      message: "Password must be at least 8 characters long, include an uppercase letter, number, and symbol",
     },
   },
   role: {

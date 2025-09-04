@@ -3,3 +3,4 @@ export { default as ButtonSpinner } from "./ButtonSpinner";
 export { default as Layout } from "./Layout";
 export { default as ProtectedRoute } from "./ProtectedRoute";
 export { default as AppToaster } from "./AppToaster";
+export { default as LogoutModal } from "./LogoutModal";

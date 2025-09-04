@@ -3,10 +3,7 @@ const { StatusCodes } = require("http-status-codes")
 const CustomError = require("../../errors")
 
 const createProductController = async (req, res, next) => {
-  const { name: rawName, description: rawDescription, image, size, price, stock, category, subCategory, brand, featured } = req.body || {}
-
-  const name = rawName?.trim()
-  const description = rawDescription?.trim()
+  const { name, description, image, size, price, stock, category, subCategory, brand, featured } = req.body || {}
 
   try {
     if(!name || !description || !image || !size || !price || !stock || !category || !subCategory || !brand || !featured) {

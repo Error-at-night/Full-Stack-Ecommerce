@@ -5,10 +5,7 @@ const { createHash, sendResetPasswordSuccessEmail } = require("../../utils")
 
 const resetPassword = async (req, res, next) => {
   const { token } = req.params
-  const { password: rawPassword, confirmPassword: rawConfirmPassword } = req.body || {}
-
-  const password = rawPassword?.trim()
-  const confirmPassword = rawConfirmPassword?.trim()
+  const { password, confirmPassword } = req.body || {}
 
   try {
     if (!password) {

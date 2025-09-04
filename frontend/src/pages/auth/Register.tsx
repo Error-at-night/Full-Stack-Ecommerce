@@ -5,7 +5,7 @@ import { Eye, EyeOff } from 'lucide-react';
 import { useRegister } from '../../hooks/auth';
 import { ButtonSpinner } from "../../ui";
 import { Link } from "react-router-dom";
-import { emailPattern, passwordPattern } from "../../utils/regexPatterns";
+import { emailPattern, fullNamePattern, passwordPattern } from "../../utils/regexPatterns";
 
 function Register() {
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -36,7 +36,10 @@ function Register() {
             "border-red-500 focus:border-red-500 focus:outline-none" : "border-[#DAE1E7]"} border w-full py-2 px-4 rounded-md`}
             {...register("fullName", { required: "Please provide your fullname",  minLength: { value: 7,
                   message: "Fullname must be at least 7 characters (For example: John Doe)",
-                },
+                }, pattern: {
+                  value: fullNamePattern,
+                  message: "Fullname must contain only alphabets",
+                }
               })
             }
             disabled={isPending}
