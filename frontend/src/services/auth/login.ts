@@ -1,9 +1,9 @@
 import axiosInstance from "../../utils/axios"
 import { LOGIN_ENDPOINT } from "../../utils/constants"
 import { getErrorMessage } from "../../utils/helpers"
-import type { LoginResponse } from "../../utils/types/auth"
+import type { LoginFormData, LoginResponse } from "../../utils/types/auth"
 
-const login = async (data: { email: string, password: string }): Promise<LoginResponse> => {
+const login = async (data: LoginFormData): Promise<LoginResponse> => {
   try {
     const response = await axiosInstance.post<LoginResponse>(LOGIN_ENDPOINT, data) 
     return response.data

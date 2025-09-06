@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const { twoDecimalPlacePattern } = require("../utils")
 
 const ProductSchema = new mongoose.Schema({
   user: {
@@ -9,32 +10,48 @@ const ProductSchema = new mongoose.Schema({
   name: {
     type: String,
     required: [true, "Please provide the name for this product"],
-    maxlength: 100,
-    unique: true
+    minLength: [10, "Product name must be at least 10 characters"],
+    maxlength: [100, "Product name cannot exceed 100 characters"],
+    unique: true,
+    trim: true
   },
   image: {
     type: String,
-    required: [true, "Please upload the image for this product"]
+    required: [true, "Please upload an image for this product"],
+  },
+  imageId: {
+    type: String,
+    required: true
   },
   description: {
     type: String,
-    required: [true, "Please provide the description for this product"],
-    maxLength: 200,
+    required: [true, "Please write a description for this product"],
+    minLength: [50, "Description must be at least 50 characters"],
+    maxLength: [300, "Description cannot exceed 300 characters"],
+    trim: true,
   },
   size: {
     type: [String],
-    required: [true, "Please provide the sizes for this product"],
-    enum: ["S", "M", "L", "XL"]
+    required: [true, "Please select at least one size for the product"],
+    enum: ["S", "M", "L", "XL", "XXL"]
   },
   price: {
     type: Number,
-    required: [true, "Please provide the price for this product"],
-    min: [0, "Please provide a positive number"],
-    default: 0
+    required: [true, "Please provide a price for the product"],
+    min: [0.01, "Price must be greater than 0"],
+    validate: {
+      validator: function(value) {
+        return twoDecimalPlacePattern.test(value.toString())
+      },
+      message: "Price must be a valid amount (e.g. 100)"
+    },
+    set: (value) => Number(Number(value).toFixed(2))
   },
   averageRating: {
     type: Number,
-    default: 0
+    default: 0,
+    min: 0,
+    max: 5 
   },
   numOfReviews: {
     type: Number,
@@ -42,23 +59,28 @@ const ProductSchema = new mongoose.Schema({
   },
   stock: {
     type: Number,
-    default: 5,
-    required: true
+    required: true,
+    min: [1, "Stock must be at least 1"],
+    max: [100, "Stock cannot exceed 100"],
+    validate: {
+      validator: Number.isInteger,
+      message: "Stock must be a whole number"
+    }
   },
   category: {
     type: String,
-    required: [true, "Please provide the category for this product"],
+    required: [true, "Please select a category for this product"],
     enum: ["Men", "Women"]
   },
   subCategory: {
     type: String,
-    required: [true, "Please provide the sub category for this product"],
+    required: [true, "Please select a sub category for this product"],
     enum: ["Shirt", "Trouser", "Watch", "Shoe", "Bag"]
   },
   brand: {
     type: String,
     required: [true, "Please provide the name of the brand for this product"],
-    enum: ["Dior", "Gucci", "Louis Vitton"]
+    trim: true,
   },
   featured: {
     type: Boolean,

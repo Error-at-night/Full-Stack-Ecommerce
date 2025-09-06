@@ -3,11 +3,19 @@ const { StatusCodes } = require("http-status-codes")
 const CustomError = require("../../errors")
 
 const createProductController = async (req, res, next) => {
-  const { name, description, image, size, price, stock, category, subCategory, brand, featured } = req.body || {}
+  const { name, description, image, imageId, size, price, stock, category, subCategory, brand, featured } = req.body || {}
 
   try {
-    if(!name || !description || !image || !size || !price || !stock || !category || !subCategory || !brand || !featured) {
+    if(!name || !description || !image || !imageId || !Array.isArray(size) || size.length === 0 || !price || !stock || 
+      !category || !subCategory || !brand
+    ) {
       throw new CustomError.BadRequestError("All fields are required")
+    }
+
+    const productNameAlreadyExists = await Product.findOne({ name })
+
+    if(productNameAlreadyExists) {
+      throw new CustomError.BadRequestError("Product name already exists")
     }
 
     const product = await Product.create({ 
@@ -15,6 +23,7 @@ const createProductController = async (req, res, next) => {
       name, 
       description,
       image,
+      imageId,
       size,
       price,
       stock,

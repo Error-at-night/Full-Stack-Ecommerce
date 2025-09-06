@@ -18,7 +18,7 @@ function Register() {
   const { registerUser, isPending } = useRegister()
 
   const onSubmit: SubmitHandler<RegisterFormData> = (data) => {
-    registerUser(data, { onSettled: () => {
+    registerUser(data, { onSuccess: () => {
       reset()
     }})
   }
@@ -32,13 +32,13 @@ function Register() {
         </div>
         <div className="flex flex-col mt-5">
           <label htmlFor="name" className="text-[#2B3445] font-semibold mb-2">Full Name</label>
-          <input type="text" id="name" className={`${errors.fullName ? 
+          <input type="text" id="name" placeholder="e.g. John Doe" className={`${errors.fullName ? 
             "border-red-500 focus:border-red-500 focus:outline-none" : "border-[#DAE1E7]"} border w-full py-2 px-4 rounded-md`}
-            {...register("fullName", { required: "Please provide your fullname",  minLength: { value: 7,
-                  message: "Fullname must be at least 7 characters (For example: John Doe)",
+            {...register("fullName", { required: "Please provide your full name",  minLength: { value: 7,
+                  message: "Full name must be at least 7 characters (e.g. John Doe)",
                 }, pattern: {
                   value: fullNamePattern,
-                  message: "Fullname must contain only alphabets",
+                  message: "Full name must contain only alphabets",
                 }
               })
             }
@@ -48,15 +48,15 @@ function Register() {
         </div>
         <div className="flex flex-col py-4">
           <label htmlFor="email" className="text-[#2B3445] font-semibold mb-2">Email</label>
-          <input type="email" id="email" 
+          <input type="email" id="email" placeholder="e.g. johndoe@gmail.com"
             className={`${errors.email ? 
               "border-red-500 focus:border-red-500 focus:outline-none" : "border-[#DAE1E7]"} border w-full py-2 px-4 rounded-md`}
             {...register("email", {
-              required: "Please provide your email (For example: johndoe@gmail.com)",
+              required: "Please provide your email (e.g. johndoe@gmail.com)",
               validate: (value) => {
 
                 if (!emailPattern.test(value)) {
-                  return "Please provide a valid email address (For example: johndoe@gmail.com)";
+                  return "Please provide a valid email address (e.g. johndoe@gmail.com)";
                 }
 
                 const firstPart = value.split("@")[0];

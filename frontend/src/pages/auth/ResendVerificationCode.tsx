@@ -10,7 +10,7 @@ function ResendVerificationCode() {
   const { resendUserVerificationCode, isPending } = useResendVerificationCode()
   
   const onSubmit: SubmitHandler<ResendVerificationCodeFormData> = (data) => {
-    resendUserVerificationCode(data, { onSettled: () => {
+    resendUserVerificationCode(data, { onSuccess: () => {
       reset()
     }})
   }
@@ -24,7 +24,7 @@ function ResendVerificationCode() {
         </div>
         <div className="flex flex-col pt-4">
           <label htmlFor="email" className="text-[#2B3445] font-semibold mb-2">Email</label>
-          <input type="email" id="email" 
+          <input type="email" id="email" placeholder="e.g. johndoe@gmail.com"
             className={`${errors.email ? 
               "border-red-500 focus:border-red-500 focus:outline-none" : "border-[#DAE1E7]"} border w-full py-2 px-4 rounded-md`}
             {...register("email", {

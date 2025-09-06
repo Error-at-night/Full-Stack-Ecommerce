@@ -47,6 +47,7 @@ function MobileNavbar() {
                           <NavLink 
                             to={item.to} 
                             className="flex items-center w-full"
+                            onClick={() => setOpenSidebar(false)}
                           >
                             {<item.icon size={24}/>}
                             <span className="ms-2 font-medium">{item.label}</span>

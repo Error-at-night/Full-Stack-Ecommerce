@@ -50,7 +50,7 @@ function VerifyEmail() {
   }
 
   const onSubmit: SubmitHandler<VerifyEmailFormData> = (data) => {
-    verifyUserEmail(data, { onSettled: () => {
+    verifyUserEmail(data, { onSuccess: () => {
         reset()
         setCode(["", "", "", "", "", ""])
       },

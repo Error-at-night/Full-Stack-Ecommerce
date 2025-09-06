@@ -1,6 +1,20 @@
+import { useState } from "react"
+import CreateProductForm from "./components/CreateProductForm"
+
 function Products() {
+  const [openCreateProductForm, setOpenCreateProductForm] = useState<boolean>(false)
+
   return (
-    <h2 className="lg:ml-64 pt-32 px-8 pl-6 lg:pl-8">Products</h2>
+    <main className="lg:ml-64 pt-38 px-8 pl-6 lg:pl-8">
+      <div className="flex justify-end items-center">
+        <button type="submit" className="text-white bg-black px-3 py-2 rounded-md cursor-pointer font-semibold"
+          onClick={() => setOpenCreateProductForm(true)}
+        >
+          Add product
+        </button>
+      </div>
+      {openCreateProductForm && <CreateProductForm onClose={() => setOpenCreateProductForm(false)}/>}
+    </main>
   )
 }
 

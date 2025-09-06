@@ -12,3 +12,7 @@ export const RESET_PASSWORD_ENDPOINT = "api/v1/auth/reset-password"
 
 // user
 export const SHOW_CURRENT_USER_ENDPOINT = "api/v1/users/show-me"
+
+// product
+export const CREATE_PRODUCT_ENDPOINT = "api/v1/product"
+export const UPLOAD_IMAGE_ENDPOINT = "api/v1/product/upload-image"

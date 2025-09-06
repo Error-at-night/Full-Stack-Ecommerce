@@ -15,7 +15,7 @@ function Login() {
   const { loginUser, isPending } = useLogin()
 
   const onSubmit: SubmitHandler<LoginFormData> = (data) => {
-    loginUser(data, { onSettled: () => {
+    loginUser(data, { onSuccess: () => {
       reset()
     }})
   }
@@ -29,7 +29,7 @@ function Login() {
         </div>
         <div className="flex flex-col py-4">
           <label htmlFor="email" className="text-[#2B3445] font-semibold mb-2">Email</label>
-          <input type="email" id="email" 
+          <input type="email" id="email" placeholder="e.g. johndoe@gmail.com"
             className={`${errors.email ? 
               "border-red-500 focus:border-red-500 focus:outline-none" : "border-[#DAE1E7]"} border w-full py-2 px-4 rounded-md`}
             {...register("email", {
@@ -37,7 +37,7 @@ function Login() {
               validate: (value) => {
 
                 if (!emailPattern.test(value)) {
-                  return "Please provide a valid email address (For example: johndoe@gmail.com)";
+                  return "Please provide a valid email address (e.g. johndoe@gmail.com)";
                 }
 
                 const firstPart = value.split("@")[0];
@@ -62,7 +62,7 @@ function Login() {
                 required: "Please provide your password",
                 pattern: {
                   value: passwordPattern,
-                  message: "Password must be at least 8 characters, and include an uppercase letter, number, and symbol",
+                  message: "Password must be at least 8 characters, include an uppercase letter, number, and symbol",
                 },
               })}
               disabled={isPending}

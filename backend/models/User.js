@@ -8,8 +8,8 @@ const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: [true, "Please provide your fullname"],
-    minlength: [7, "Fullname must be at least 7 characters long (For example: John Doe)"],
-    match: [/^[A-Za-z\s]+$/, "Fullname must contain only alphabets"],
+    minlength: [7, "Full name must be at least 7 characters long (e.g. John Doe)"],
+    match: [/^[A-Za-z\s]+$/, "Full name must contain only alphabets"],
   },
   email: {
     type: String,
@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema({
         validator: function(value) {
           return emailPattern.test(value);
         },
-        message: "Please provide a valid email address (For example: johndoe@gmail.com)",
+        message: "Please provide a valid email address (e.g. johndoe@gmail.com)",
       },
       {
         validator: function(value) {
