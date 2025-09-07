@@ -1,8 +1,15 @@
 import { useState } from "react"
+
 import CreateProductForm from "./components/CreateProductForm"
+
+import { useGetAllProducts } from "../../../hooks/product";
 
 function Products() {
   const [openCreateProductForm, setOpenCreateProductForm] = useState<boolean>(false)
+
+  const { products } = useGetAllProducts()
+
+  console.log(products)
 
   return (
     <main className="lg:ml-64 pt-38 px-8 pl-6 lg:pl-8">
@@ -14,6 +21,7 @@ function Products() {
         </button>
       </div>
       {openCreateProductForm && <CreateProductForm onClose={() => setOpenCreateProductForm(false)}/>}
+      {}
     </main>
   )
 }
