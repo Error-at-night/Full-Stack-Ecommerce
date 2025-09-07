@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query"
 import toast from "react-hot-toast"
-import { logout } from '../../services/auth';
+import { logout as logoutApi } from '../../services/auth';
 import { useNavigate } from "react-router-dom";
 
 function useLogout() {
   const navigate = useNavigate()
 
-  const { mutate: logoutUser, isPending } = useMutation({
-    mutationFn: logout,
+  const { mutate: logout, isPending } = useMutation({
+    mutationFn: logoutApi,
     onSuccess: (data) => {
       toast.success(data.message || "Logout successful")
       navigate("/login", { replace: true })
@@ -17,7 +17,7 @@ function useLogout() {
     }
   })
   
-  return { logoutUser, isPending }
+  return { logout, isPending }
 }
 
 export default useLogout

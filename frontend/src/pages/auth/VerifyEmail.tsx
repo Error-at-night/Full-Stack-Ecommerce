@@ -11,7 +11,7 @@ function VerifyEmail() {
 
   const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm<VerifyEmailFormData>()
   
-  const { verifyUserEmail, isPending } = useVerifyEmail()
+  const { verifyEmail, isPending } = useVerifyEmail()
 
   const handleChange = (index: number, value: string) => {
     const newCode = [...code]
@@ -50,7 +50,7 @@ function VerifyEmail() {
   }
 
   const onSubmit: SubmitHandler<VerifyEmailFormData> = (data) => {
-    verifyUserEmail(data, { onSuccess: () => {
+    verifyEmail(data, { onSuccess: () => {
         reset()
         setCode(["", "", "", "", "", ""])
       },

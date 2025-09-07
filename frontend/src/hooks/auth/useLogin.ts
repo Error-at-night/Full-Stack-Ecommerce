@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query"
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
-import { login } from "../../services/auth"
+import { login as loginApi } from "../../services/auth"
 
 function useLogin() {
   const navigate = useNavigate()
   
-  const { mutate: loginUser, isPending } = useMutation({
-    mutationFn: login,
+  const { mutate: login, isPending } = useMutation({
+    mutationFn: loginApi,
     onSuccess: (data) => {
       toast.success(data.message || "Login successful")
       navigate("/home", { replace: true })
@@ -17,7 +17,7 @@ function useLogin() {
     }
   })
   
-  return { loginUser, isPending }
+  return { login, isPending }
 }
 
 export default useLogin

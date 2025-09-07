@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query"
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
-import { resendVerificationCode } from "../../services/auth"
+import { resendVerificationCode as resendVerificationCodeApi } from "../../services/auth"
 
 function useResendVerificationCode() {
   const navigate = useNavigate()
   
-  const { mutate: resendUserVerificationCode, isPending } = useMutation({
-    mutationFn: resendVerificationCode,
+  const { mutate: resendVerificationCode, isPending } = useMutation({
+    mutationFn: resendVerificationCodeApi,
     onSuccess: (data) => {
       toast.success(data.message || "Verification code resent. Please check your inbox.")
       navigate("/verify-email", { replace: true })
@@ -17,7 +17,7 @@ function useResendVerificationCode() {
     }
   })
   
-  return { resendUserVerificationCode, isPending }
+  return { resendVerificationCode, isPending }
 }
 
 export default useResendVerificationCode

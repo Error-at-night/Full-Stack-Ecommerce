@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
-import { showCurrentUser } from '../../services/user'
+import { showCurrentUser as showCurrentUserApi  } from '../../services/user'
 function useShowCurrentUser() {
   const { data: currentUser, isPending } =  useQuery({
     queryKey: ["currentUser"],
-    queryFn: showCurrentUser,
+    queryFn: showCurrentUserApi,
   })
   
   return { currentUser, isPending }

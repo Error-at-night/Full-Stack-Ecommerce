@@ -12,7 +12,9 @@ const createProductController = async (req, res, next) => {
       throw new CustomError.BadRequestError("All fields are required")
     }
 
-    const productNameAlreadyExists = await Product.findOne({ name })
+    const normalizedName = name.trim().toLowerCase()
+
+    const productNameAlreadyExists = await Product.findOne({ name: normalizedName })
 
     if(productNameAlreadyExists) {
       throw new CustomError.BadRequestError("Product name already exists")

@@ -19,7 +19,7 @@ function ResetPassword() {
 
   const passwordValue = watch("password")
 
-  const { resetUserPassword, isPending } = useResetPassword()
+  const { resetPassword, isPending } = useResetPassword()
 
   const onSubmit: SubmitHandler<ResetPasswordFormData> = (data) => {
     if (!token) {
@@ -27,7 +27,7 @@ function ResetPassword() {
       return
     }
 
-    resetUserPassword({...data, token}, { onSuccess: () => {
+    resetPassword({...data, token}, { onSuccess: () => {
       reset()
     }})
   }

@@ -1,7 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const multer = require("multer");
 
-function multerErrorHandler(err, req, res, next) {
+const multerErrorHandler = (err, req, res, next) => {
   if (err instanceof multer.MulterError) {
     let message = "Something went wrong while uploading your file, please try again"
 
@@ -29,7 +29,7 @@ function multerErrorHandler(err, req, res, next) {
         break;
     }
 
-    return res.status(StatusCodes.BAD_REQUEST).json({ success: false, message })
+    return res.status(StatusCodes.BAD_REQUEST).json({ message })
   }
 
   next(err)

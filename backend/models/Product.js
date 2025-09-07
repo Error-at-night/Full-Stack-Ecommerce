@@ -13,7 +13,8 @@ const ProductSchema = new mongoose.Schema({
     minLength: [10, "Product name must be at least 10 characters"],
     maxlength: [100, "Product name cannot exceed 100 characters"],
     unique: true,
-    trim: true
+    trim: true,
+    lowercase: true,
   },
   image: {
     type: String,
@@ -60,11 +61,11 @@ const ProductSchema = new mongoose.Schema({
   stock: {
     type: Number,
     required: true,
-    min: [1, "Stock must be at least 1"],
-    max: [100, "Stock cannot exceed 100"],
+    min: [1, "Stock quantity must be at least 1"],
+    max: [100, "Stock quantity cannot exceed 100"],
     validate: {
       validator: Number.isInteger,
-      message: "Stock must be a whole number"
+      message: "Stock quantity must be a whole number"
     }
   },
   category: {
@@ -87,6 +88,13 @@ const ProductSchema = new mongoose.Schema({
     default: false
   }
 }, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } })
+
+ProductSchema.pre("save", async function (next) {
+  if (this.name) {
+    this.name = this.name.trim().toLowerCase()
+  }
+  next()
+})
 
 ProductSchema.virtual("reviews", {
   ref: "Review",

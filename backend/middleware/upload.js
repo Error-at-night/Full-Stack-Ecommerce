@@ -2,7 +2,6 @@ const multer = require("multer")
 const path = require("path")
 
 const storage = multer.memoryStorage()
-
 const fileFilter = (req, file, cb) => {
   const allowedTypes = /jpeg|jpg|png|webp/
   const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase())
@@ -11,7 +10,7 @@ const fileFilter = (req, file, cb) => {
   if (extname && mimetype) {
     cb(null, true)
   } else {
-    cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE", "Only images are allowed"))
+    cb(new multer.MulterError("LIMIT_UNEXPECTED_FILE", "Only images (JPEG, JPG, PNG, WEBP) are allowed"))
   }
 }
 

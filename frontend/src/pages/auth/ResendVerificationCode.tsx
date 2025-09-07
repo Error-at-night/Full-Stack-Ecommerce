@@ -7,10 +7,10 @@ import { emailPattern } from "../../utils/regexPatterns";
 function ResendVerificationCode() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<ResendVerificationCodeFormData>();
   
-  const { resendUserVerificationCode, isPending } = useResendVerificationCode()
+  const { resendVerificationCode, isPending } = useResendVerificationCode()
   
   const onSubmit: SubmitHandler<ResendVerificationCodeFormData> = (data) => {
-    resendUserVerificationCode(data, { onSuccess: () => {
+    resendVerificationCode(data, { onSuccess: () => {
       reset()
     }})
   }

@@ -12,10 +12,10 @@ function Login() {
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginFormData>();
 
-  const { loginUser, isPending } = useLogin()
+  const { login, isPending } = useLogin()
 
   const onSubmit: SubmitHandler<LoginFormData> = (data) => {
-    loginUser(data, { onSuccess: () => {
+    login(data, { onSuccess: () => {
       reset()
     }})
   }

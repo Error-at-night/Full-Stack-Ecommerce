@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query"
 import toast from "react-hot-toast"
 import { useNavigate } from "react-router-dom"
-import { resetPassword } from "../../services/auth"
+import { resetPassword as resetPasswordApi } from "../../services/auth"
 
 function useResetPassword() {
   const navigate = useNavigate()
   
-  const { mutate: resetUserPassword, isPending } = useMutation({
-    mutationFn: resetPassword,
+  const { mutate: resetPassword, isPending } = useMutation({
+    mutationFn: resetPasswordApi,
     onSuccess: (data) => {
       toast.success(data.message || "Password reset successful")
       navigate("/login", { replace: true })
@@ -17,7 +17,7 @@ function useResetPassword() {
     }
   })
   
-  return { resetUserPassword, isPending }
+  return { resetPassword, isPending }
 }
 
 export default useResetPassword

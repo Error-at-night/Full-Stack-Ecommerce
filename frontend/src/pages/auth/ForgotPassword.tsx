@@ -11,11 +11,11 @@ function ForgotPassword() {
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<ForgotPasswordFormData>();
   
-  const { sendForgotPassword, isPending, emailSent } = useForgotPassword()
+  const { forgotPassword, isPending, emailSent } = useForgotPassword()
   
   const onSubmit: SubmitHandler<ForgotPasswordFormData> = (data) => {
     setEmailSubmitted(data.email)
-    sendForgotPassword(data, { onSuccess: () => {
+    forgotPassword(data, { onSuccess: () => {
       reset()
     }})
   }
