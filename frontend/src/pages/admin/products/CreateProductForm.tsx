@@ -6,15 +6,15 @@ import toast from "react-hot-toast"
 
 import { useForm, Controller, type SubmitHandler } from "react-hook-form";
 
-import type { CreateProductFormData } from "../../../../utils/types/admin"
+import type { CreateProductFormData } from "../../../utils/types/admin"
 
 import Select from "react-select";
 
-import { useCreateProduct, useUploadImage } from "../../../../hooks/product";
+import { useCreateProduct, useUploadImage } from "../../../hooks/product";
 
-import { ButtonSpinner } from "../../../../ui";
+import { ButtonSpinner } from "../../../ui";
 
-import { twoDecimalPlacePattern } from "../../../../utils/regexPatterns";
+import { twoDecimalPlacePattern } from "../../../utils/regexPatterns";
 
 type CreateProductProps = {
   onClose: () => void

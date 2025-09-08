@@ -13,7 +13,7 @@ function LogoutModal({ isOpen, onClose }: LogoutModalProps) {
   if (!isOpen) return null
 
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 flex items-center justify-center bg-black/50 px-2">
+    <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/50 px-2">
       <div className="bg-white p-6 pb-7 rounded-lg w-full max-w-[400px]">
         <h2 className="text-[1.2rem] sm:text-[1.3rem] lg:text-[1.5rem] font-semibold">
           Confirm Logout

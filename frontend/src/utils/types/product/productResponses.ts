@@ -10,7 +10,10 @@ export type Product = {
   size: string[]
   featured: boolean
   image: string
-  imageId: string
+  imageId: string,
+  // reviews:
+  averageRating: number,
+  numOfReviews: number
 }
 
 export type CreateProductResponse = {
@@ -26,4 +29,8 @@ export type UploadImageResponse = {
 
 export type GetAllProductsResponse = {
   products: Product[]
+}
+
+export type GetSingleProductResponse = {
+  product: Product
 }

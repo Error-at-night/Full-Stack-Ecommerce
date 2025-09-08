@@ -9,7 +9,7 @@ function Sidebar() {
   const [openModal, setOpenModal] = useState<boolean>(false)
 
   return (
-    <aside className="w-64 pt-2 z-10 px-8 hidden lg:flex lg:flex-col fixed h-full bg-black">
+    <aside className="w-64 pt-2 z-20 px-8 hidden lg:flex lg:flex-col fixed h-full bg-black">
       <div className="flex-grow">
         <div className="mb-9 mt-6">
           <h1 className="text-white font-extrabold text-[1.6rem]">Admin Panel</h1>
