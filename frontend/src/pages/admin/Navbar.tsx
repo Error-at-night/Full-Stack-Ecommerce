@@ -10,7 +10,7 @@ function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 max-w-full bg-white lg:shadow-xl lg:ml-64 lg:px-8 lg:py-8 hidden lg:flex lg:items-center lg:justify-between">
+      <nav className="fixed top-0 left-0 z-5 right-0 max-w-full bg-white lg:shadow-xl lg:ml-64 lg:px-4 lg:py-8 hidden lg:flex lg:items-center lg:justify-between">
         <div>
           <div className="flex items-center space-x-2 text-black">
             <Gem size={28} />

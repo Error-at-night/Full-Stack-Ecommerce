@@ -4,7 +4,7 @@ const { cloudinary } = require("../../utils");
 const streamifier = require("streamifier");
 const fileType = require('file-type');
 
-async function validateFile(buffer) {
+const validateFile = async (buffer) => {
   const type = await fileType.fromBuffer(buffer)
   if (!type || !["image/jpeg", "image/png", "image/webp"].includes(type.mime)) {
     throw new CustomError.BadRequestError("Invalid image file, only JPEG, JPG, PNG, and WebP are allowed")

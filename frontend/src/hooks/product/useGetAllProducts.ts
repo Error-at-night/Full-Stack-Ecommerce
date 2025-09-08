@@ -3,7 +3,7 @@ import { getAllProducts as getAllProductsApi } from "../../services/product"
 
 function useGetAllProducts() {
   const { data: products, isPending } = useQuery({
-    queryKey: ["product"],
+    queryKey: ["products"],
     queryFn: getAllProductsApi
   })
   

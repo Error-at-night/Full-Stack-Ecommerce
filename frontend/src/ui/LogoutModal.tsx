@@ -8,7 +8,7 @@ type LogoutModalProps = {
 }
 
 function LogoutModal({ isOpen, onClose }: LogoutModalProps) {
-  const { logoutUser, isPending } = useLogout()
+  const { logout, isPending } = useLogout()
 
   if (!isOpen) return null
 
@@ -21,7 +21,7 @@ function LogoutModal({ isOpen, onClose }: LogoutModalProps) {
         <p className="mt-2 font-normal">Are you sure you want to logout?</p>
         <div className="flex items-center font-semibold justify-between mt-5">
           <button
-            onClick={() => logoutUser()}
+            onClick={() => logout()}
             disabled={isPending}
             className="bg-red-500 text-white px-8 py-1 rounded-sm cursor-pointer"
           >

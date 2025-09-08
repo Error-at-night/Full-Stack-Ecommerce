@@ -17,7 +17,7 @@ export function getErrorMessage(error: unknown): string {
           return error.response.data?.message || "An unexpected error occurred";
       }
     } else if (error.request) {
-      return "No response from server. Please check your internet connection and try again.";
+      return "No response from the server. Please check your internet connection and try again.";
     } else {
       return error.message || "An unknown error occurred.";
     }

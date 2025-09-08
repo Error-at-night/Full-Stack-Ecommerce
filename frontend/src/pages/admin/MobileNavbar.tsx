@@ -14,8 +14,8 @@ function MobileNavbar() {
   const [openModal, setOpenModal] = useState<boolean>(false)
 
   return(
-    <nav className="fixed top-0 left-0 right-0 bg-white max-w-full shadow-xl pr-8 pl-6 py-9 lg:hidden lg:shadow 
-      lg:pr-0 lg:pl-0 lg:py-0"
+    <nav className="fixed top-0 left-0 right-0 z-10 bg-white max-w-full shadow-xl px-4 py-9 lg:hidden lg:shadow 
+      lg:px-0 lg:py-0"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 text-black">

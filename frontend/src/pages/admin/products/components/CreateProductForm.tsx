@@ -72,7 +72,7 @@ function CreateProductForm({ onClose }: CreateProductProps) {
 
   return (
     <aside>
-      <div className="fixed inset-0 flex justify-end">
+      <div className="fixed inset-0 flex justify-end z-[10]">
         <div className="w-full max-w-[600px] shadow-2xl px-8 pb-10 bg-white pt-2 h-full min-h-screen overflow-y-auto">
             <div className="flex mb-5 mt-6 items-center justify-between">
               <button onClick={onClose}
