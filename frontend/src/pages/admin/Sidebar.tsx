@@ -8,6 +8,14 @@ function Sidebar() {
   const location: Location = useLocation()
   const [openModal, setOpenModal] = useState<boolean>(false)
 
+  const handleOpenModal = () => {
+    setOpenModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setOpenModal(false)
+  }
+
   return (
     <aside className="w-64 pt-2 z-20 px-8 hidden lg:flex lg:flex-col fixed h-full bg-black">
       <div className="flex-grow">
@@ -35,12 +43,12 @@ function Sidebar() {
       </div>
       <div className="pb-16">
         <button className="bg-red-600 text-center text-white px-10 py-2 cursor-pointer flex items-center
-          font-bold rounded-sm" onClick={() => setOpenModal(true)}
+          font-bold rounded-sm" onClick={handleOpenModal}
         >
           Logout
         </button>
       </div>
-      <LogoutModal isOpen={openModal} onClose={() => setOpenModal(false)}/>
+      <LogoutModal isOpen={openModal} onClose={handleCloseModal}/>
     </aside>
   )
 }

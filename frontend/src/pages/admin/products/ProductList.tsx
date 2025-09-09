@@ -2,13 +2,43 @@ import type { Product } from "../../../utils/types/product"
 
 import { Pencil, Trash2 } from "lucide-react"
 
+import { useState } from "react"
+
 import { Link } from "react-router-dom"
+
+import { DeleteProductModal } from "../../../ui"
+
+import { useDeleteProduct } from "../../../hooks/product"
 
 type ProductListProps = {
   products: Product[]
 }
 
-function ProductList({ products }: ProductListProps) {
+function ProductList({ products }: ProductListProps) {  
+  const { deleteProduct, isPending: isDeleting } = useDeleteProduct()
+
+  const [openModal, setOpenModal] = useState<boolean>(false)
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
+
+  const handleDeleteClick = (productId: string) => {
+    setSelectedProductId(productId)
+    setOpenModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setOpenModal(false)
+    setSelectedProductId(null)
+  }
+
+  const handleConfirmDelete = () => {
+    if (!selectedProductId) return
+    deleteProduct(selectedProductId, {
+      onSuccess: () => {
+        handleCloseModal()
+      }
+    })
+  }
+
   return(
     <main className="min-h-screen">
       {products.length === 0 ?
@@ -40,7 +70,11 @@ function ProductList({ products }: ProductListProps) {
                   {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
                 </p>
                 <div className="flex justify-between mt-5">
-                  <button className="text-red-600 hover:text-red-800 cursor-pointer"><Trash2/></button>
+                  <button className="text-red-600 hover:text-red-800 cursor-pointer"
+                    onClick={() => handleDeleteClick(product._id)}
+                  >
+                    <Trash2/>
+                  </button>
                    <button className="text-black cursor-pointer"><Pencil/></button>
                 </div>
               </div>
@@ -48,6 +82,9 @@ function ProductList({ products }: ProductListProps) {
           ))}
         </div>
       }
+      {selectedProductId && <DeleteProductModal isOpen={openModal} onClose={handleCloseModal}
+        onConfirm={handleConfirmDelete} isPending={isDeleting}
+      />}
     </main>
   )
 }

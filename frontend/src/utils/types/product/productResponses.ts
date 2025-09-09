@@ -34,3 +34,7 @@ export type GetAllProductsResponse = {
 export type GetSingleProductResponse = {
   product: Product
 }
+
+export type DeleteProductResponse = {
+  message: string
+}

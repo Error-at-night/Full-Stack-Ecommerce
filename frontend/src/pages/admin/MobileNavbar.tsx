@@ -13,6 +13,23 @@ function MobileNavbar() {
   const [openSidebar, setOpenSidebar] = useState<boolean>(false)
   const [openModal, setOpenModal] = useState<boolean>(false)
 
+  const handleOpenSidebar = () => {
+    setOpenSidebar(true)
+  }
+
+  const handleClick = () => {
+    setOpenModal(true)
+    setOpenSidebar(false)
+  } 
+
+  const handleCloseSidebar = () => {
+    setOpenSidebar(false)
+  }
+
+  const handleCloseModal = () => {
+    setOpenModal(false)
+  }
+
   return(
     <nav className="fixed top-0 left-0 right-0 z-10 bg-white max-w-full shadow-xl px-4 py-9 lg:hidden lg:shadow 
       lg:px-0 lg:py-0"
@@ -23,14 +40,14 @@ function MobileNavbar() {
           <h1 className="font-bold text-[1.1rem] sm:text-[1.2rem] logo">StyleHive</h1>
         </div>
         <div>
-          <Menu size={28} className="cursor-pointer" onClick={() => setOpenSidebar(true)}/>
+          <Menu size={28} className="cursor-pointer" onClick={handleOpenSidebar}/>
         </div>
       </div>
       {openSidebar && (
         <div className="fixed inset-0 flex justify-end z-10">
           <div className="z-10 w-full max-w-[300px] shadow-2xl px-8 bg-black pt-2 h-full min-h-screen">
             <div className="flex mb-5 mt-6  items-center justify-between">
-              <button onClick={() => setOpenSidebar(false)}
+              <button onClick={handleCloseSidebar}
                 className="cursor-pointer text-white"  
               >
                 <X size={30}/>
@@ -47,7 +64,7 @@ function MobileNavbar() {
                           <NavLink 
                             to={item.to} 
                             className="flex items-center w-full"
-                            onClick={() => setOpenSidebar(false)}
+                            onClick={handleCloseSidebar}
                           >
                             {<item.icon size={24}/>}
                             <span className="ms-2 font-medium">{item.label}</span>
@@ -59,7 +76,7 @@ function MobileNavbar() {
                   <li>
                     <div className="pt-16">
                       <button className="bg-red-600 text-center text-white px-10 py-2 cursor-pointer flex items-center
-                        font-bold rounded-sm" onClick={() => { setOpenModal(true); setOpenSidebar(false) }}
+                        font-bold rounded-sm" onClick={handleClick}
                       >
                         Logout
                       </button>
@@ -71,7 +88,7 @@ function MobileNavbar() {
           </div> 
         </div>
       )}
-      <LogoutModal isOpen={openModal} onClose={() => setOpenModal(false)}/>
+      <LogoutModal isOpen={openModal} onClose={handleCloseModal}/>
     </nav>
   )
 }

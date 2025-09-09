@@ -5,3 +5,4 @@ export { default as ProtectedRoute } from "./ProtectedRoute";
 export { default as AppToaster } from "./AppToaster";
 export { default as LogoutModal } from "./LogoutModal";
 export { default as Skeleton } from "./Skeleton";
+export { default as DeleteProductModal } from "./DeleteProductModal";

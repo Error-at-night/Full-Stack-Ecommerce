@@ -18,6 +18,7 @@ export const CREATE_PRODUCT_ENDPOINT = "api/v1/product"
 export const UPLOAD_IMAGE_ENDPOINT = "api/v1/product/upload-image"
 export const GET_ALL_PRODUCTS_ENDPOINT = "api/v1/product"
 export const GET_SINGLE_PRODUCT_ENDPOINT = "api/v1/product"
+export const DELETE_PRODUCT_ENDPOINT = "api/v1/product"
 
 // review
 // export const GET_SINGLE_REVIEW_ENDPOINT = "api/v1/review"

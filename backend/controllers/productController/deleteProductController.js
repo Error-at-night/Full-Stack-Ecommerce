@@ -3,6 +3,7 @@ const Review = require("../../models/Review")
 const { StatusCodes } = require("http-status-codes")
 const mongoose = require("mongoose");
 const CustomError = require("../../errors");
+const { cloudinary } = require("../../utils");
 
 const deleteProductController = async (req, res, next) => {
   const { id: productId } = req.params
@@ -16,6 +17,10 @@ const deleteProductController = async (req, res, next) => {
 
     if(!product) {
       throw new CustomError.NotFoundError("Product not found")
+    }
+
+    if(product.imageId) {
+      await cloudinary.uploader.destroy(product.imageId);
     }
 
     await Review.deleteMany({ product: product._id })
