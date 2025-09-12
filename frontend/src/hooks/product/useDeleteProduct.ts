@@ -9,7 +9,7 @@ function useDeleteProduct() {
     mutationFn: deleteProductApi,
     onSuccess: async (data) => {
       toast.success(data.message || "Product added successfully")
-      queryClient.invalidateQueries({ queryKey: ["products"] })
+      await queryClient.invalidateQueries({ queryKey: ["products"] })
     },
     onError: (error) => {
       toast.error(error.message || "An error occured while deleting the product")

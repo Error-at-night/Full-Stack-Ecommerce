@@ -56,12 +56,14 @@ function ProductList({ products }: ProductListProps) {
                 />
               </div>
               <div className="p-4">
-                <h2 className="text-[1.125rem] font-semibold mb-2 capitalize truncate">{product.name}</h2>
+                <h2 className="text-[1.125rem] font-bold mb-2 capitalize truncate">{product.name}</h2>
                 <p className="text-gray-600 mb-4">
                   <span className="truncate block">{product.description}</span>
-                  <Link to={`${product._id}`} className="text-black text-[0.9rem] underline cursor-pointer">View more</Link>
+                  <Link to={`${product._id}`} className="text-black text-[0.9rem] underline cursor-pointer font-semibold">
+                    View more
+                  </Link>
                 </p>
-                <p className="text-black font-bold text-[1.125rem]">${product.price}</p>
+                <p className="text-black font-medium text-[1.125rem]">${product.price}</p>
                 <p className={`absolute top-4 right-4 px-3 py-1 text-[0.8rem] font-bold rounded-full shadow-md 
                   ${product.stock > 10 ? "bg-green-100 text-green-700" : product.stock > 0 
                     ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"
@@ -70,21 +72,19 @@ function ProductList({ products }: ProductListProps) {
                   {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
                 </p>
                 <div className="flex justify-between mt-5">
-                  <Link to={`${product._id}/edit`} className="text-black cursor-pointer"><Pencil/></Link>
-                  <button className="text-red-600 hover:text-red-800 cursor-pointer"
+                  <button className="text-red-600 hover:text-red-800 cursor-pointer font-bold"
                     onClick={() => handleDeleteClick(product._id)}
                   >
                     <Trash2/>
                   </button>
+                   <Link to={`${product._id}/edit`} className="text-black cursor-pointer"><Pencil/></Link>
                 </div>
               </div>
             </div>
           ))}
         </div>
       }
-      {selectedProductId && <DeleteProductModal isOpen={openModal} onClose={handleCloseModal}
-        onConfirm={handleConfirmDelete} isPending={isDeleting}
-      />}
+      <DeleteProductModal isOpen={openModal} onClose={handleCloseModal} onConfirm={handleConfirmDelete} isPending={isDeleting}/>
     </main>
   )
 }

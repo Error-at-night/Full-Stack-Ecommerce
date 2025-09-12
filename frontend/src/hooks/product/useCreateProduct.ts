@@ -7,9 +7,9 @@ function useCreateProduct() {
 
   const { mutate: createProduct, isPending } = useMutation({
     mutationFn: createProductApi,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       toast.success(data.message || "Product added successfully")
-      queryClient.invalidateQueries({ queryKey: ["products"] })
+      await queryClient.invalidateQueries({ queryKey: ["products"] })
     },
     onError: (error) => {
       toast.error(error.message || "An error occured while adding the product")

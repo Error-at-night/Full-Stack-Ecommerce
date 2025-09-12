@@ -93,6 +93,7 @@ function CreateProductForm({ isOpen, onClose }: CreateProductProps) {
                   </button>
                 </div>
                 <form className="w-full mt-10" onSubmit={handleSubmit(onSubmit)}>
+                  <h2 className="text-black text-[1.5rem] font-bold mb-5 -mt-3">Create Product</h2>
                   {/*  */}
                   <div className="flex flex-col">
                     <label htmlFor="product-name" className="text-[#2B3445] font-semibold mb-2">

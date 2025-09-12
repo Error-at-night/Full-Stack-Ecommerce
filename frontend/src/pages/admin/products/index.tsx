@@ -30,7 +30,6 @@ function Products() {
         </button>
       </div>
       <CreateProductForm isOpen={openCreateProductForm} onClose={handleCloseForm}/>
-        
       <div className="mt-8 lg:mt-8">
         {isPending && <Skeleton />}
         {isError && <p className="text-gray-700">{error?.message}</p>}
