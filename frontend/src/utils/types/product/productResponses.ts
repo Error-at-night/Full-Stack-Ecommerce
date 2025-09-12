@@ -36,5 +36,10 @@ export type GetSingleProductResponse = {
 }
 
 export type DeleteProductResponse = {
-  message: string
+  message: string,
+}
+
+export type EditProductResponse = {
+  message: string,
+  product: Product
 }

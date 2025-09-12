@@ -15,10 +15,10 @@ type ProductListProps = {
 }
 
 function ProductList({ products }: ProductListProps) {  
-  const { deleteProduct, isPending: isDeleting } = useDeleteProduct()
-
   const [openModal, setOpenModal] = useState<boolean>(false)
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
+
+  const { deleteProduct, isPending: isDeleting } = useDeleteProduct()
 
   const handleDeleteClick = (productId: string) => {
     setSelectedProductId(productId)
@@ -70,12 +70,12 @@ function ProductList({ products }: ProductListProps) {
                   {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
                 </p>
                 <div className="flex justify-between mt-5">
+                  <Link to={`${product._id}/edit`} className="text-black cursor-pointer"><Pencil/></Link>
                   <button className="text-red-600 hover:text-red-800 cursor-pointer"
                     onClick={() => handleDeleteClick(product._id)}
                   >
                     <Trash2/>
                   </button>
-                   <button className="text-black cursor-pointer"><Pencil/></button>
                 </div>
               </div>
             </div>

@@ -7,6 +7,8 @@ import { Gem, Menu, X } from "lucide-react"
 
 import { LogoutModal } from "../../ui";
 
+import { motion, AnimatePresence } from 'framer-motion';
+
 function MobileNavbar() {
   const location: Location = useLocation()
 
@@ -43,51 +45,56 @@ function MobileNavbar() {
           <Menu size={28} className="cursor-pointer" onClick={handleOpenSidebar}/>
         </div>
       </div>
-      {openSidebar && (
-        <div className="fixed inset-0 flex justify-end z-10">
-          <div className="z-10 w-full max-w-[300px] shadow-2xl px-8 bg-black pt-2 h-full min-h-screen">
-            <div className="flex mb-5 mt-6  items-center justify-between">
-              <button onClick={handleCloseSidebar}
-                className="cursor-pointer text-white"  
-              >
-                <X size={30}/>
-              </button>
-            </div>
-            <div className="w-full sm:max-w-[300px] h-full">
-              <div>
-                <ul className="z-10 pt-4">
-                  {adminLinks.map((item, index) => {
-                    const isActive = location.pathname.startsWith(item.to)
-                    return ( 
-                      <li key={index} className="mb-8 relative">
-                        <div className={`flex items-center relative ${isActive ? "text-white" : "text-gray-400"}`}>
-                          <NavLink 
-                            to={item.to} 
-                            className="flex items-center w-full"
-                            onClick={handleCloseSidebar}
-                          >
-                            {<item.icon size={24}/>}
-                            <span className="ms-2 font-medium">{item.label}</span>
-                          </NavLink>
-                        </div>
-                      </li>
-                    )
-                  })}
-                  <li>
-                    <div className="pt-16">
-                      <button className="bg-red-600 text-center text-white px-10 py-2 cursor-pointer flex items-center
-                        font-bold rounded-sm" onClick={handleClick}
-                      >
-                        Logout
-                      </button>
-                    </div>
-                  </li>
-                </ul>
+      <AnimatePresence>
+        {openSidebar && (
+          <div className="fixed inset-0 flex justify-end z-10">
+            <motion.div className="z-10 w-full max-w-[300px] shadow-2xl px-8 bg-black pt-2 h-full min-h-screen"
+              initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            >
+              <div className="flex mb-5 mt-6  items-center justify-between">
+                <button onClick={handleCloseSidebar}
+                  className="cursor-pointer text-white"  
+                >
+                  <X size={30}/>
+                </button>
               </div>
-            </div>
-          </div> 
-        </div>
-      )}
+              <div className="w-full sm:max-w-[300px] h-full">
+                <div>
+                  <ul className="z-10 pt-4">
+                    {adminLinks.map((item, index) => {
+                      const isActive = location.pathname.startsWith(item.to)
+                      return ( 
+                        <li key={index} className="mb-8 relative">
+                          <div className={`flex items-center relative ${isActive ? "text-white" : "text-gray-400"}`}>
+                            <NavLink 
+                              to={item.to} 
+                              className="flex items-center w-full"
+                              onClick={handleCloseSidebar}
+                            >
+                              {<item.icon size={24}/>}
+                              <span className="ms-2 font-medium">{item.label}</span>
+                            </NavLink>
+                          </div>
+                        </li>
+                      )
+                    })}
+                    <li>
+                      <div className="pt-16">
+                        <button className="bg-red-600 text-center text-white px-10 py-2 cursor-pointer flex items-center
+                          font-bold rounded-sm" onClick={handleClick}
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </motion.div> 
+          </div>
+        )}
+      </AnimatePresence>
       <LogoutModal isOpen={openModal} onClose={handleCloseModal}/>
     </nav>
   )

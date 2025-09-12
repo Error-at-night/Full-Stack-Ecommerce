@@ -6,13 +6,14 @@ import { useState } from "react";
 
 function SingleProduct() {
   const { id } = useParams<{ id: string }>()
+  
   const navigate = useNavigate()
-
-  const { product, isPending, isError, error } = useGetSingleProduct(id)
-  const { deleteProduct, isPending: isDeleting } = useDeleteProduct()
 
   const [openModal, setOpenModal] = useState<boolean>(false)
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
+
+  const { product, isPending, isError, error } = useGetSingleProduct(id)
+  const { deleteProduct, isPending: isDeleting } = useDeleteProduct()
 
   const stock = product?.stock ?? 0
   const sizes = product?.size ?? []
@@ -32,7 +33,7 @@ function SingleProduct() {
   }
 
   const handleConfirmDelete = () => {
-    if (!selectedProductId) return
+    if(!selectedProductId) return
     deleteProduct(selectedProductId, {
       onSuccess: () => {
         handleCloseModal()
@@ -63,7 +64,7 @@ function SingleProduct() {
                 <Pencil />
               </button>
               <button className="text-red-600 hover:text-red-800 cursor-pointer"
-                onClick={() => handleDeleteClick(product?._id as string)}
+                onClick={() =>  product?._id && handleDeleteClick(product._id)}
               >
                 <Trash2 />
               </button>

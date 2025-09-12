@@ -89,11 +89,10 @@ const ProductSchema = new mongoose.Schema({
   }
 }, { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } })
 
-ProductSchema.pre("save", async function (next) {
+ProductSchema.pre("save", async function () {
   if (this.name) {
     this.name = this.name.trim().toLowerCase()
   }
-  next()
 })
 
 ProductSchema.virtual("reviews", {

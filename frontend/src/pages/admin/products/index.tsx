@@ -29,7 +29,7 @@ function Products() {
           Add product
         </button>
       </div>
-      {openCreateProductForm && <CreateProductForm onClose={handleCloseForm}/>}
+      <CreateProductForm isOpen={openCreateProductForm} onClose={handleCloseForm}/>
         
       <div className="mt-8 lg:mt-8">
         {isPending && <Skeleton />}

@@ -14,9 +14,10 @@ const ForgotPassword = lazy(() => import("./pages/auth/ForgotPassword"));
 const ResetPassword = lazy(() => import("./pages/auth/ResetPassword"));
 
 import AdminLayout from "./pages/admin";
-import SingleProduct from "./pages/admin/products/singleProduct";
 const Dashboard = lazy(() => import("./pages/admin/dashboard"));
 const Products = lazy(() => import("./pages/admin/products"));
+const SingleProduct = lazy(() => import("./pages/admin/products/singleProduct"));
+const EditProductForm = lazy(() => import("./pages/admin/products/EditProductForm"));
 const Users = lazy(() => import("./pages/admin/users"));
 const Orders = lazy(() => import("./pages/admin/orders"));
 
@@ -57,6 +58,7 @@ function App() {
               <Route path="dashboard" element={<Dashboard/>} />
               <Route path="products" element={<Products/>} />
               <Route path="products/:id" element={<SingleProduct/>}/>
+              <Route path="products/:id/edit" element={<EditProductForm/>}/>
               <Route path="users" element={<Users/>} />
               <Route path="orders" element={<Orders/>} />
             </Route>

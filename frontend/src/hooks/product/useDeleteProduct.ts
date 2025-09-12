@@ -7,13 +7,12 @@ function useDeleteProduct() {
 
   const { mutate: deleteProduct, isPending } = useMutation({
     mutationFn: deleteProductApi,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       toast.success(data.message || "Product added successfully")
       queryClient.invalidateQueries({ queryKey: ["products"] })
-      queryClient.invalidateQueries({ queryKey: ["singleProduct"] })
     },
     onError: (error) => {
-      toast.error(error.message || "An error occured while adding the product")
+      toast.error(error.message || "An error occured while deleting the product")
     }
   })
   
