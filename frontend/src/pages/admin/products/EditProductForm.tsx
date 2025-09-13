@@ -88,7 +88,7 @@ function EditProductForm() {
 
   return (
     <aside>
-      <div className="flex justify-center items-center lg:ml-64 pt-35 lg:pt-42 pb-10">
+      <div className="flex justify-center items-center lg:ml-64 pt-35 lg:pt-42 pb-10 px-4">
         <div className="relative w-full max-w-[600px] rounded-lg shadow-[0_10px_25px_rgba(0,0,0,0.1)] px-8 pb-10 bg-white pt-2 h-full min-h-screen overflow-y-auto">
           <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             {/*  */}

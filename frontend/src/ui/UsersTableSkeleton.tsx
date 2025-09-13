@@ -1,6 +1,6 @@
 function UsersTableSkeleton() {
   return (
-    <div className="overflow-x-auto bg-white shadow-md rounded-lg animate-pulse px-4">
+    <div className="overflow-x-auto bg-white shadow-md rounded-lg animate-pulse">
       <table className="min-w-full text-sm text-left text-gray-700">
         <thead className="bg-gray-100 text-gray-600 uppercase text-xs">
           <tr>
