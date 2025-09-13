@@ -28,7 +28,10 @@ export type UploadImageResponse = {
 }
 
 export type GetAllProductsResponse = {
-  products: Product[]
+  products: Product[],
+  page: number,
+  limit: number,
+  total: number
 }
 
 export type GetSingleProductResponse = {

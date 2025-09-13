@@ -39,6 +39,14 @@ function ProductList({ products }: ProductListProps) {
     })
   }
 
+  const handleNextPagination = () => {
+    
+  }
+
+   const handlePrevPagination = () => {
+    
+  }
+
   return(
     <main className="min-h-screen">
       {products.length === 0 ?
@@ -63,16 +71,16 @@ function ProductList({ products }: ProductListProps) {
                     View more
                   </Link>
                 </p>
-                <p className="text-black font-medium text-[1.125rem]">${product.price}</p>
+                <p className="text-black font-medium text-[1.125rem]">${product.price.toLocaleString()}</p>
                 <p className={`absolute top-4 right-4 px-3 py-1 text-[0.8rem] font-bold rounded-full shadow-md 
-                  ${product.stock > 10 ? "bg-green-100 text-green-700" : product.stock > 0 
+                  ${product.stock > 10 ? "bg-green-100 text-green-700" : product.stock > 5
                     ? "bg-yellow-100 text-yellow-700" : "bg-red-100 text-red-700"
                   }`}
                 >
                   {product.stock > 0 ? `${product.stock} in stock` : "Out of stock"}
                 </p>
                 <div className="flex justify-between mt-5">
-                  <button className="text-red-600 hover:text-red-800 cursor-pointer font-bold"
+                  <button className="text-red-600 hover:text-red-800 cursor-pointer"
                     onClick={() => handleDeleteClick(product._id)}
                   >
                     <Trash2/>
@@ -85,6 +93,8 @@ function ProductList({ products }: ProductListProps) {
         </div>
       }
       <DeleteProductModal isOpen={openModal} onClose={handleCloseModal} onConfirm={handleConfirmDelete} isPending={isDeleting}/>
+      <button onClick={handlePrevPagination}>Previous</button>
+      <button onClick={handleNextPagination}>Next</button>
     </main>
   )
 }

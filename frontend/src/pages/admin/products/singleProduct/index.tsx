@@ -18,10 +18,6 @@ function SingleProduct() {
   const stock = product?.stock ?? 0
   const sizes = product?.size ?? []
 
-  if(isPending) return <div className="lg:ml-64 pt-35 lg:pt-36 px-4"><Skeleton /></div>
-
-  if(isError) return <p className="text-gray-700 lg:ml-64 pt-35 lg:pt-36 px-4">{error?.message}</p>
-
   const handleDeleteClick = (productId: string) => {
     setSelectedProductId(productId)
     setOpenModal(true)
@@ -42,6 +38,10 @@ function SingleProduct() {
     })
   }
 
+  if(isPending) return <div className="lg:ml-64 pt-35 lg:pt-36 px-4"><Skeleton /></div>
+
+  if(isError) return <p className="text-gray-700 lg:ml-64 pt-35 lg:pt-36 px-4">{error?.message}</p>
+
   return (
     <main className="lg:ml-64 pt-35 lg:pt-36 px-4 overflow-x-hidden pb-6">
       <div className="max-w-full grid grid-cols-12 gap-x-12">
@@ -51,7 +51,7 @@ function SingleProduct() {
             <img src={product?.image} alt={product?.name} className="w-full h-full object-cover" />
             <div className="absolute top-4 right-4">
               <p className={`px-3 py-1 font-semibold rounded-full text-[0.97rem] sm:text-[0.99rem] shadow ${stock > 10
-                ? "bg-green-100 text-green-700" : stock > 0 ? "bg-yellow-100 text-yellow-700"
+                ? "bg-green-100 text-green-700" : stock > 5 ? "bg-yellow-100 text-yellow-700"
                   : "bg-red-100 text-red-700"
                 }`}
               >
@@ -69,7 +69,9 @@ function SingleProduct() {
           </h2>
           {/*  */}
           <div className="flex flex-wrap justify-between items-center mb-4">
-            <p className="text-[1.2rem] sm:text-[1.3rem] md:text-[1.4rem] font-semibold text-gray-800">${product?.price}</p>
+            <p className="text-[1.2rem] sm:text-[1.3rem] md:text-[1.4rem] font-semibold text-gray-800">
+              ${product?.price.toLocaleString()}
+            </p>
             <div className="flex items-center">
               <Link to={`edit`} className="text-black cursor-pointer mr-8 lg:mr-12">
                 <Pencil />
