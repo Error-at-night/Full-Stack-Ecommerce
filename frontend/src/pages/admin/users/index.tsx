@@ -29,12 +29,6 @@ function Users() {
     setSearch(value)
     setSearchParams({ page: "1", limit: String(limit), search: value }) 
   }
-
-  // if(isPending) return <div className="lg:ml-64 pt-35 lg:pt-36 px-4"><UsersTableSkeleton/></div>
-
-  // if(isError) return <p className="text-gray-700 lg:ml-64 pt-35 lg:pt-36 px-4">{error?.message}</p>
-    
-  // if(!data?.users || data.users.length === 0) return <div className="lg:ml-64 pt-35 lg:pt-36 px-4"><p className="text-gray-600">No users found</p></div>
   
   const handleOpenModal = (userId: string) => {
     setOpenModal(true)
@@ -63,13 +57,13 @@ function Users() {
           className="border px-3 py-2 rounded-md w-full border-[#DAE1E7]"
         />
       </div>
-      <div className="">
+      <div>
         {isPending && <UsersTableSkeleton />}
         {isError && <p className="text-gray-700">{error?.message}</p>}
         {!isPending && !isError && (
           <>
             {data?.users.length === 0 ? (
-              <p className="text-gray-600">No users found</p>
+              <p className="text-gray-600">No user found</p>
             ) : (
               <table className="min-w-full text-sm text-left text-gray-700 overflow-x-auto bg-white shadow-md rounded-tr-lg rounded-tl-lg">
                 <thead className="bg-gray-100 text-gray-600 uppercase text-xs">
