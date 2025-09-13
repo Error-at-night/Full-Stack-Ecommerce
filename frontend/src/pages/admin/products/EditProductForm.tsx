@@ -25,7 +25,7 @@ const sizeOptions = [
 ]
 
 function EditProductForm() {
-    const { id } = useParams<{ id: string }>()
+  const { id } = useParams<{ id: string }>()
     
   const [file, setFile] = useState<File | null>(null)
 

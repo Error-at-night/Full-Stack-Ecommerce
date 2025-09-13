@@ -70,7 +70,7 @@ function Products() {
             className="border px-3 py-2 rounded-md w-full border-[#DAE1E7]"
           />
         </div>
-        <button type="submit" className="text-white ms-auto py-3 px-3 lg:py-2 mt-6 md:mt-0 w-full md:max-w-[130px] bg-black rounded-md cursor-pointer font-semibold"
+        <button type="submit" className="text-white ms-auto py-2 px-3 lg:py-2 mt-6 md:mt-0 w-full md:max-w-[130px] bg-black rounded-md cursor-pointer font-semibold"
           onClick={handleOpenForm}
         >
           Add product

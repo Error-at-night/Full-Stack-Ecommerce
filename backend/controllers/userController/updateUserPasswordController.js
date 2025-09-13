@@ -4,15 +4,11 @@ const { StatusCodes } = require("http-status-codes")
 const { sendUpdateUserPasswordSuccessEmail } = require("../../utils")
 
 const updateUserPasswordController = async (req, res, next) => {
-  const { currentPassword: rawCurrentPassword, newPassword: rawNewPassword, newConfirmPassword: rawNewConfirmPassword } = req.body || {}
-
-  const currentPassword = rawCurrentPassword?.trim()
-  const newPassword = rawNewPassword?.trim()
-  const newConfirmPassword = rawNewConfirmPassword?.trim() 
+  const { currentPassword, newPassword, newConfirmPassword } = req.body || {}
 
   try {
     if(!currentPassword || !newPassword || !newConfirmPassword) {
-    throw new CustomError.BadRequestError("All fields are required")
+      throw new CustomError.BadRequestError("All fields are required")
     }
 
     if(newPassword !== newConfirmPassword) {

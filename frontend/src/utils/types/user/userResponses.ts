@@ -18,3 +18,8 @@ export type ShowCurrentUserResponse = {
 export type GetAllUsersResponse = {
   users: Users[]
 }
+
+export type DeleteUserResponse = {
+  message: string
+}
+

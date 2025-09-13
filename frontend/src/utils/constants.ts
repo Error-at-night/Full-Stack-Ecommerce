@@ -13,6 +13,7 @@ export const RESET_PASSWORD_ENDPOINT = "api/v1/auth/reset-password"
 // user
 export const SHOW_CURRENT_USER_ENDPOINT = "api/v1/users/show-me"
 export const GET_ALL_USERS_ENDPOINT = "api/v1/users"
+export const DELETE_USER_ENDPOINT = "api/v1/users"
 
 // product
 export const CREATE_PRODUCT_ENDPOINT = "api/v1/product"

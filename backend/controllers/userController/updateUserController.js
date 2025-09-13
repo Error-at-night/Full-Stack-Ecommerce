@@ -6,10 +6,7 @@ const crypto = require("crypto")
 const Token = require("../../models/Token")
 
 const updateUserController = async (req, res, next) => {
-  const { fullName: rawFullName, email: rawEmail } = req.body || {}
-
-  const fullName = rawFullName?.trim()
-  const email = rawEmail?.trim()
+  const { fullName, email } = req.body || {}
   
   try {
     if(!fullName || !email){

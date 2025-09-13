@@ -2,14 +2,14 @@ import ReactDOM from "react-dom";
 import ButtonSpinner from "./ButtonSpinner";
 import { motion, AnimatePresence } from "framer-motion";
 
-type DeleteProductModalProps = {
+type DeleteUserModalProps = {
   isOpen: boolean
   onClose: () => void,
   onConfirm: () => void,
   isPending: boolean
 }
 
-function DeleteUserModal({ isOpen, onClose, onConfirm, isPending }: DeleteProductModalProps) {
+function DeleteUserModal({ isOpen, onClose, onConfirm, isPending }: DeleteUserModalProps) {
 
   return ReactDOM.createPortal(
     <AnimatePresence>
@@ -28,7 +28,7 @@ function DeleteUserModal({ isOpen, onClose, onConfirm, isPending }: DeleteProduc
             <h2 className="text-[1.2rem] sm:text-[1.3rem] lg:text-[1.5rem] font-semibold">
               Confirm Delete
             </h2>
-            <p className="mt-2 font-normal">Are you sure you want to delete this product?</p>
+            <p className="mt-2 font-normal">Are you sure you want to delete this user?</p>
             <div className="flex items-center font-semibold justify-between mt-5">
               <button
                 onClick={onConfirm}

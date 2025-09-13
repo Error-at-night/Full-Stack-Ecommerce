@@ -1,13 +1,13 @@
 function UsersTableSkeleton() {
   return (
-    <div className="overflow-x-auto bg-white shadow-md rounded-lg animate-pulse pt-10 px-4">
+    <div className="overflow-x-auto bg-white shadow-md rounded-lg animate-pulse px-4">
       <table className="min-w-full text-sm text-left text-gray-700">
         <thead className="bg-gray-100 text-gray-600 uppercase text-xs">
           <tr>
             <th className="px-6 py-3">Name</th>
             <th className="px-6 py-3">Email</th>
             <th className="px-6 py-3">Role</th>
-            <th className="px-6 py-3">Status</th>
+            <th className="px-6 py-3">Action</th>
           </tr>
         </thead>
         <tbody>
