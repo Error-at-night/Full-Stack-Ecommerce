@@ -6,7 +6,7 @@ function useUploadImage() {
   const { mutateAsync: uploadImage, isPending: uploadIsPending } = useMutation({
     mutationFn: uploadImageAPI,
     onError: (error: Error) => {
-      toast.error(error.message || "An error occurred while uploading the image")
+      toast.error(error.message || "An error occurred when uploading the image")
     }
   })
 

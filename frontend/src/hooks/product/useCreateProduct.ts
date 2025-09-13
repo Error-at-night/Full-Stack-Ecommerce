@@ -12,7 +12,7 @@ function useCreateProduct() {
       await queryClient.invalidateQueries({ queryKey: ["products"] })
     },
     onError: (error) => {
-      toast.error(error.message || "An error occured while adding the product")
+      toast.error(error.message || "An error occured when adding the product")
     }
   })
   

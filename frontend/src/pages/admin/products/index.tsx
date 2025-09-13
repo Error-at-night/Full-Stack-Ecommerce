@@ -6,23 +6,32 @@ import { useDeleteProduct, useGetAllProducts } from "../../../hooks/product";
 
 import { DeleteProductModal, Skeleton } from "../../../ui";
 import { Link, useSearchParams } from 'react-router-dom';
-import { Pencil, Trash2 } from "lucide-react";
-import Pagination from "./Pagination";
+import { Pencil, Search, Trash2 } from "lucide-react";
+import Pagination from "../../../ui/Pagination";
+import { useDebounce } from "use-debounce" 
 
 function Products() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [openCreateProductForm, setOpenCreateProductForm] = useState<boolean>(false)
   const [openModal, setOpenModal] = useState<boolean>(false)
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null)
+  const [search, setSearch] = useState(searchParams.get("search") || "")
+  const [debouncedSearch] = useDebounce(search, 800)
 
   const page = parseInt(searchParams.get("page") || "1", 10)
   const limit = 10
   
-  const { data, isPending, isError, error } = useGetAllProducts(page, limit)
+  const { data, isPending, isError, error } = useGetAllProducts(page, limit, debouncedSearch)
   const { deleteProduct, isPending: isDeleting } = useDeleteProduct()
 
   const handlePageChange = (newPage: number) => {
     setSearchParams({ page: String(newPage), limit: String(limit) })
+  }
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setSearch(value)
+    setSearchParams({ page: "1", limit: String(limit), search: value }) 
   }
 
   const handleOpenForm = () => {
@@ -44,7 +53,7 @@ function Products() {
   }
 
   const handleConfirmDelete = () => {
-    if (!selectedProductId) return
+    if(!selectedProductId) return
     deleteProduct(selectedProductId, {
       onSuccess: () => {
         handleCloseModal()
@@ -52,21 +61,25 @@ function Products() {
     })
   }
 
-  if(isPending) return <div className="lg:ml-64 pt-35 lg:pt-36 px-4"><Skeleton /></div>
-
-  if(isError) return <p className="text-gray-700 lg:ml-64 pt-35 lg:pt-36 px-4">{error?.message}</p>
-
   return (
-    <main className="lg:ml-64 pt-35 lg:pt-36 px-4 pb-8">
-      <div className="flex justify-end items-center">
-        <button type="submit" className="text-white bg-black px-3 py-2 rounded-md cursor-pointer font-semibold"
+    <main className="lg:ml-64 pt-40 lg:pt-42 px-4 pb-8">
+      <div className="flex flex-wrap lg:flex-nowrap justify-between items-center">
+        <div className="relative w-full md:max-w-[500px]">
+          <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <input type="text" value={search} onChange={handleSearchChange} placeholder="Search products..."
+            className="border px-3 py-2 rounded-md w-full"
+          />
+        </div>
+        <button type="submit" className="text-white ms-auto py-3 px-3 lg:py-2 mt-6 md:mt-0 w-full md:max-w-[130px] bg-black rounded-md cursor-pointer font-semibold"
           onClick={handleOpenForm}
         >
           Add product
         </button>
       </div>
       <CreateProductForm isOpen={openCreateProductForm} onClose={handleCloseForm}/>
-      <div className="mt-8 lg:mt-8">
+      {isPending && <div className="pt-10"><Skeleton /></div>}
+      {isError && <p className="text-gray-700 pt-10">{error?.message}</p>}
+      {!isPending && !isError && <div className="mt-8 lg:mt-8">
         {data?.products && 
           <main className="min-h-screen">
             {data.products.length === 0 ?
@@ -112,11 +125,11 @@ function Products() {
                 ))}
               </div>
             }
-            <DeleteProductModal isOpen={openModal} onClose={handleCloseModal} onConfirm={handleConfirmDelete} isPending={isDeleting}/>
+            {selectedProductId && <DeleteProductModal isOpen={openModal} onClose={handleCloseModal} onConfirm={handleConfirmDelete} isPending={isDeleting}/>}
             <Pagination page={data.page || page} limit={data.limit || limit} total={data.total || 0} onPageChange={handlePageChange}/>
           </main>
         }
-      </div>
+      </div>}
     </main>
   )
 }

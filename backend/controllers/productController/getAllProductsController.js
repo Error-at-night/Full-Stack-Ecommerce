@@ -2,11 +2,15 @@ const Product = require("../../models/Product")
 const { StatusCodes } = require("http-status-codes")
 
 const getAllProductsController = async (req, res, next) => {
-  const { category, brand, price, color, sort, page = 1, limit = 10 } = req.query
+  const { search, category, brand, price, color, sort, page = 1, limit = 10 } = req.query
 
   const queryObject = {}
 
   try {
+    if(search) {
+      queryObject.$or = [{ name: { $regex: search, $options: "i" } }]
+    }
+
     if(category) {
       queryObject.category = category
     }
@@ -31,15 +35,6 @@ const getAllProductsController = async (req, res, next) => {
     } else {
       result = result.sort("-createdAt")
     }
-
-    // const page = Number(req.query.page) || 1
-    // const limit = Number(req.query.limit) || 10
-    // const skip = (page - 1) * limit
-
-    // results = results.skip(skip).limit(limit)
-
-    // const products = await results
-    // res.status(StatusCodes.OK).json({ products })
 
     const skip = (Number(page) - 1) * Number(limit)
     result = result.skip(skip).limit(Number(limit))

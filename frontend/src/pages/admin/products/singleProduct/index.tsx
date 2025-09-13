@@ -126,7 +126,7 @@ function SingleProduct() {
           </div>
         </div>
       </div>
-      <DeleteProductModal isOpen={openModal} onClose={handleCloseModal} onConfirm={handleConfirmDelete} isPending={isDeleting}/>
+      {selectedProductId && <DeleteProductModal isOpen={openModal} onClose={handleCloseModal} onConfirm={handleConfirmDelete} isPending={isDeleting}/>}
     </main>
   )
 }

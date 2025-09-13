@@ -18,7 +18,7 @@ function useEditProduct() {
       navigate("/admin/products", { replace: true })
     },
     onError: (error) => {
-      toast.error(error.message || "An error occured while updating the product")
+      toast.error(error.message || "An error occured when updating the product")
     }
   })
   

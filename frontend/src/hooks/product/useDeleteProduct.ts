@@ -12,7 +12,7 @@ function useDeleteProduct() {
       await queryClient.invalidateQueries({ queryKey: ["products"] })
     },
     onError: (error) => {
-      toast.error(error.message || "An error occured while deleting the product")
+      toast.error(error.message || "An error occured when deleting the product")
     }
   })
   
