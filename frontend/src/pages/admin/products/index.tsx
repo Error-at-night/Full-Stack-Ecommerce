@@ -67,7 +67,7 @@ function Products() {
         <div className="relative w-full md:max-w-[500px]">
           <Search className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input type="text" value={search} onChange={handleSearchChange} placeholder="Search products..."
-            className="border px-3 py-2 rounded-md w-full"
+            className="border px-3 py-2 rounded-md w-full border-[#DAE1E7]"
           />
         </div>
         <button type="submit" className="text-white ms-auto py-3 px-3 lg:py-2 mt-6 md:mt-0 w-full md:max-w-[130px] bg-black rounded-md cursor-pointer font-semibold"
