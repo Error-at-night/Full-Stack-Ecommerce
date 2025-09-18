@@ -49,7 +49,7 @@ function SingleProduct() {
         <div className="col-span-12 md:col-span-6">
           <div className="aspect-[4/3] w-full overflow-hidden relative">
             <img src={product?.image} alt={product?.name} className="w-full h-full object-cover" />
-            <div className="absolute top-4 right-4">
+            <div className="absolute top-3 right-4">
               <p className={`px-3 py-1 font-semibold rounded-full text-[0.97rem] sm:text-[0.99rem] shadow ${stock > 10
                 ? "bg-green-100 text-green-700" : stock > 5 ? "bg-yellow-100 text-yellow-700"
                   : "bg-red-100 text-red-700"

@@ -10,7 +10,7 @@ import Select from "react-select";
 
 import { useEditProduct, useGetSingleProduct, useUploadImage } from "../../../hooks/product";
 
-import { ButtonSpinner, Skeleton } from "../../../ui";
+import { ButtonSpinner, EditProductSkeleton } from "../../../ui";
 
 import { twoDecimalPlacePattern } from "../../../utils/regexPatterns";
 
@@ -43,7 +43,7 @@ function EditProductForm() {
     if(product) reset(product)
   }, [product, reset])
 
-  if(isPending) return <div className="lg:ml-64 pt-35 lg:pt-36 px-4"><Skeleton /></div>
+  if(isPending) return <EditProductSkeleton />
 
   if(isError) return <p className="text-gray-700 lg:ml-64 pt-35 lg:pt-36 px-4">{error?.message}</p>
 
@@ -87,7 +87,7 @@ function EditProductForm() {
   }
 
   return (
-    <aside>
+    <main>
       <div className="flex justify-center items-center lg:ml-64 pt-35 lg:pt-42 pb-10 px-4">
         <div className="relative w-full max-w-[600px] rounded-lg shadow-[0_10px_25px_rgba(0,0,0,0.1)] px-8 pb-10 bg-white pt-2 h-full min-h-screen overflow-y-auto">
           <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
@@ -237,7 +237,7 @@ function EditProductForm() {
             </form>
         </div>
       </div>
-    </aside>
+    </main>
   )
 }
 

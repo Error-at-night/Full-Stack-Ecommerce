@@ -4,10 +4,7 @@ const { StatusCodes } = require("http-status-codes")
 const CustomError = require("../../errors")
 
 const createReviewController = async (req, res, next) => {
-  const { title: rawTitle, comment: rawComment, rating, product: productId } = req.body || {}
-
-  const title = rawTitle?.trim()
-  const comment = rawComment?.trim()
+  const { title, comment, rating, product: productId } = req.body || {}
 
   try {
     if(!title || !comment || !rating) {

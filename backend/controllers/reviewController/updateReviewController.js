@@ -3,11 +3,7 @@ const Review = require("../../models/Review")
 
 const updateReviewController = async (req, res, next) => {
   const { id: reviewId } = req.params
-  const { title: rawTitle, rating: rawRating, comment: rawComment } = req.body || {}
-
-  const rating = rawRating?.trim()
-  const title = rawTitle?.trim()
-  const comment = rawComment?.trim()
+  const { title, rating, comment, } = req.body || {}
 
   try {
     const review = await Review.findOne({ _id: reviewId })

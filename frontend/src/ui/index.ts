@@ -8,3 +8,4 @@ export { default as Skeleton } from "./Skeleton";
 export { default as DeleteProductModal } from "./DeleteProductModal";
 export { default as UsersTableSkeleton } from "./UsersTableSkeleton";
 export { default as DeleteUserModal } from "./DeleteUserModal";
+export { default as EditProductSkeleton } from "./EditProductSkeleton";

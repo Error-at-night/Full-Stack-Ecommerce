@@ -20,14 +20,16 @@ const updateProductController = async (req, res, next) => {
       throw new CustomError.NotFoundError("Product not found")
     }
 
-    if(product.imageId && imageId && product.imageId !== imageId) {
-      await cloudinary.uploader.destroy(product.imageId)
+    if(imageId && String(product.imageId) !== String(imageId)) {
+      if(product.imageId) {
+        await cloudinary.uploader.destroy(product.imageId)
+      }
+      product.image = image ?? product.image
+      product.imageId = imageId
     }
 
     product.name = name ?? product.name
     product.description = description ?? product.description
-    product.image = image ?? product.image
-    product.imageId = imageId ?? product.imageId
     product.size = size ?? product.size
     product.price = price ?? product.price
     product.stock = stock ?? product.stock
