@@ -1,5 +1,4 @@
 const mongoose = require("mongoose")
-const { twoDecimalPlacePattern } = require("../utils")
 
 const ProductSchema = new mongoose.Schema({
   user: {
@@ -39,14 +38,11 @@ const ProductSchema = new mongoose.Schema({
   price: {
     type: Number,
     required: [true, "Please provide a price for the product"],
-    min: [0.01, "Price must be greater than 0"],
+    min: [1, "Price must be greater than 0"],
     validate: {
-      validator: function(value) {
-        return twoDecimalPlacePattern.test(value.toString())
-      },
-      message: "Price must be a valid amount (e.g. 100)"
-    },
-    set: (value) => Number(Number(value).toFixed(2))
+      validator: Number.isInteger,
+      message: "Price must be a whole number"
+    }
   },
   averageRating: {
     type: Number,

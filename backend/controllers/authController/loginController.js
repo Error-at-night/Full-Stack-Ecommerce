@@ -2,7 +2,7 @@ const User = require("../../models/User")
 const Token = require("../../models/Token")
 const CustomError = require("../../errors")
 const { StatusCodes } = require("http-status-codes")
-const { attachCookiesToResponse, createTokenUser, createHash } = require("../../utils")
+const { attachCookiesToResponse, createTokenUser, createHash, createAccessTokenJWT } = require("../../utils")
 const crypto = require('crypto');
 
 const login = async (req, res, next) => {
@@ -31,6 +31,8 @@ const login = async (req, res, next) => {
 
     const tokenUser = createTokenUser(user)
 
+    const accessToken = createAccessTokenJWT({ payload: { tokenUser } })
+
     const refreshToken = crypto.randomBytes(40).toString("hex")
     const hashedRefreshToken = createHash(refreshToken)
 
@@ -45,7 +47,7 @@ const login = async (req, res, next) => {
 
     attachCookiesToResponse({ res, user: tokenUser, refreshToken })
 
-    res.status(StatusCodes.OK).json({ message: "Login successful" })
+    res.status(StatusCodes.OK).json({ message: "Login successful", accessToken })
   } catch (error) {
     next(error)
   }

@@ -14,8 +14,6 @@ import { useCreateProduct, useUploadImage } from "../../../hooks/product";
 
 import { ButtonSpinner } from "../../../ui";
 
-import { twoDecimalPlacePattern } from "../../../utils/regexPatterns";
-
 import { motion, AnimatePresence } from 'framer-motion';
 
 type CreateProductProps = {
@@ -63,7 +61,8 @@ function CreateProductForm({ isOpen, onClose }: CreateProductProps) {
       imageUrl = url.imageUrl
       publicId = url.publicId
 
-    } catch {
+    } catch(error) {
+      console.log("image upload failed", error)
       return
     }
 
@@ -180,10 +179,10 @@ function CreateProductForm({ isOpen, onClose }: CreateProductProps) {
                   {/*  */}
                   <div className="flex flex-col">
                     <label htmlFor="product-price" className="text-[#2B3445] font-semibold mb-2">Price</label>
-                    <input type="number" id="product-price" placeholder="e.g. 100" step="0.01" className={`${errors.price ? 
+                    <input type="number" id="product-price" placeholder="e.g. 100" step={1} className={`${errors.price ? 
                       "border-red-500 focus:border-red-500 focus:outline-none" : "border-[#DAE1E7]"} border w-full py-2 px-4 rounded-md`}
-                      {...register("price", { required: "Please provide a price for the product", min: { value: 0.01, message: "Price must be greater than 0"},
-                        validate: (value) => twoDecimalPlacePattern.test(value.toString()) || "Price must be a valid amount (e.g. 100)"
+                      {...register("price", { required: "Please provide a price for the product", min: { value: 1, message: "Price must be greater than 0"},
+                        validate: (value) => Number.isInteger(Number(value)) || "Price must be a whole number" 
                       })} 
                       disabled={isPending || uploadIsPending}
                     />
